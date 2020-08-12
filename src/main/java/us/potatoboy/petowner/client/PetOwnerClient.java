@@ -12,7 +12,7 @@ import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import org.apache.commons.io.IOUtils;
@@ -45,9 +45,9 @@ public class PetOwnerClient implements ClientModInitializer {
                     try {
                         String name = getNameFromId(ownerId);
 
-                        playerEntity.sendMessage(Text.method_30163("Owner: " + name), false);
+                        playerEntity.sendMessage(new TranslatableText("text.petowner.message.owner", name), false);
                     } catch (Exception e) {
-                        playerEntity.sendMessage(Text.method_30163("Something went wrong"), false);
+                        playerEntity.sendMessage(new TranslatableText("text.petowner.message.error"), false);
                         e.printStackTrace();
                     }
                 });
