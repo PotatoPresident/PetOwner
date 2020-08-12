@@ -13,7 +13,7 @@
     "issues": "https://github.com/PotatoPresident/PetOwner/issues"
   },
   "license": "MIT",
-  "icon": "assets/PetOwner/icon.png",
+  "icon": "logo.png",
   "environment": "client",
   "entrypoints": {
     "client": [
@@ -23,15 +23,9 @@
       "us.potatoboy.petowner.client.ModMenuIntegration"
     ]
   },
-  "mixins": [
-    "PetOwner.mixins.json"
-  ],
   "depends": {
     "fabricloader": ">=0.9.1+build.205",
     "fabric": "*",
     "minecraft": "1.16.1"
-  },
-  "custom": {
-    "modmenu:clientsideOnly": true
   }
 }
