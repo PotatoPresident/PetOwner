@@ -8,9 +8,9 @@
     "potatoboy9999"
   ],
   "contact": {
-    "homepage": "test.com",
-    "sources": "test.net",
-    "issues": "test.com"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/pet-owner",
+    "sources": "https://github.com/PotatoPresident/PetOwner/tree/master",
+    "issues": "https://github.com/PotatoPresident/PetOwner/issues"
   },
   "license": "MIT",
   "icon": "assets/PetOwner/icon.png",
