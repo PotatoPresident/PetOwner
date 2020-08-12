@@ -5,5 +5,5 @@ import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
 
 @Config(name = "petowner")
 public class PetOwnerConfig implements ConfigData {
-    Boolean reguireEmptyHand = true;
+    Boolean requireEmptyHand = true;
 }

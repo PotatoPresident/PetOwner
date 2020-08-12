@@ -29,7 +29,7 @@ public class PetOwnerClient implements ClientModInitializer {
 
         UseEntityCallback.EVENT.register(((playerEntity, world, hand, entity, entityHitResult) -> {
             if (!hand.equals(Hand.MAIN_HAND)) return ActionResult.PASS;
-            if (config.reguireEmptyHand) {
+            if (config.requireEmptyHand) {
                 if (!playerEntity.getMainHandStack().isEmpty()) return ActionResult.PASS;
             }
 
