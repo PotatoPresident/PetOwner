@@ -1,4 +1,6 @@
 {
-  "text.autoconfig.petowner.title": "宠物主人配置 §7(Pet Owner)",
-  "text.autoconfig.petowner.option.requireEmptyHand": "需要空手右键"
+  "text.autoconfig.petowner.title": "宠物归属配置 §7(Pet Owner)",
+  "text.autoconfig.petowner.option.requireEmptyHand": "需要空手右键",
+  "text.petowner.message.owner": "§3该宠物归属于: %s",
+  "text.petowner.message.error": "§4出现了一点小问题"
 }
