@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "petowner",
+  "version": "${version}",
+  "name": "Pet Owner",
+  "description": "Click animal with empty hand to display owner",
+  "authors": [
+    "potatoboy9999"
+  ],
+  "contact": {
+    "homepage": "test.com",
+    "sources": "test.net",
+    "issues": "test.com"
+  },
+  "license": "MIT",
+  "icon": "assets/PetOwner/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "us.potatoboy.petowner.client.PetOwnerClient"
+    ],
+    "modmenu": [
+      "us.potatoboy.petowner.client.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "PetOwner.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.9.1+build.205",
+    "fabric": "*",
+    "minecraft": "1.16.1"
+  },
+  "custom": {
+    "modmenu:clientsideOnly": true
+  }
+}
