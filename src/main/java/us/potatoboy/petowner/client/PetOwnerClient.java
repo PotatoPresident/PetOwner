@@ -9,6 +9,8 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -33,16 +35,15 @@ public class PetOwnerClient implements ClientModInitializer {
                 if (!playerEntity.getMainHandStack().isEmpty()) return ActionResult.PASS;
             }
 
-            if (entityHitResult.getEntity() instanceof TameableEntity) {
-                TameableEntity tameableEntity = (TameableEntity) entityHitResult.getEntity();
+            UUID ownerId = getOwnerId(entityHitResult.getEntity());
 
-                if (!tameableEntity.isTamed()) return ActionResult.PASS;
+            if (ownerId != null) {
 
-                if (tameableEntity.isOwner(playerEntity)) return ActionResult.PASS;
+                if (playerEntity.getUuid().equals(ownerId)) return ActionResult.PASS;
 
                 CompletableFuture.runAsync(() -> {
                     try {
-                        String name = getNameFromId(tameableEntity.getOwnerUuid());
+                        String name = getNameFromId(ownerId);
 
                         playerEntity.sendMessage(Text.method_30163("Owner: " + name), false);
                     } catch (Exception e) {
@@ -64,5 +65,21 @@ public class PetOwnerClient implements ClientModInitializer {
         JsonObject object = (JsonObject) array.get(array.size() - 1);
 
         return object.get("name").getAsString();
+    }
+
+    private static UUID getOwnerId(Entity entity) {
+        if (entity instanceof TameableEntity) {
+            if (((TameableEntity) entity).isTamed()) {
+                return ((TameableEntity) entity).getOwnerUuid();
+            }
+        }
+
+        if (entity instanceof HorseBaseEntity) {
+            if (((HorseBaseEntity) entity).isTame()) {
+                return ((HorseBaseEntity) entity).getOwnerUuid();
+            }
+        }
+
+        return null;
     }
 }
