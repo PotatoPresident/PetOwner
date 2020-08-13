@@ -1,0 +1,6 @@
+{
+  "text.autoconfig.petowner.title": "寵物歸屬配置 §7(Pet Owner)",
+  "text.autoconfig.petowner.option.requireEmptyHand": "需要空手",
+  "text.petowner.message.owner": "§3該寵物歸屬於: %s",
+  "text.petowner.message.error": "§4出現了一點小問題"
+}
