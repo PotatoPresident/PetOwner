@@ -1,0 +1,6 @@
+{
+  "text.autoconfig.petowner.title": "ペットの飼い主の設定",
+  "text.autoconfig.petowner.option.requireEmptyHand": "手ぶらが必要",
+  "text.petowner.message.owner": "§3飼い主: %s",
+  "text.petowner.message.error": "§4エラーが発生しました"
+}
