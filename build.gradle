@@ -30,10 +30,10 @@ dependencies {
     modImplementation "io.github.prospector:modmenu:1.14.5+build.30"
 
     modApi "me.sargunvohra.mcmods:autoconfig1u:3.2.0-unstable"
-    modApi "me.shedaniel.cloth:config-2:4.6.0"
+    modApi "me.shedaniel.cloth:${project.cloth_api_version}"
 
     include "me.sargunvohra.mcmods:autoconfig1u:3.2.0-unstable"
-    include "me.shedaniel.cloth:config-2:4.6.0"
+    include "me.shedaniel.cloth:${project.cloth_api_version}"
 
     modRuntime "curse.maven:auth-me:3015238"
 }
