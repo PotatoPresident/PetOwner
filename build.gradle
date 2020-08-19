@@ -40,8 +40,6 @@ dependencies {
     modImplementation "io.github.prospector:modmenu:1.14.6+build.31", {
         exclude group: "net.fabricmc.fabric-api"
     }
-
-    modRuntime "curse.maven:auth-me:3015238"
 }
 
 processResources {
