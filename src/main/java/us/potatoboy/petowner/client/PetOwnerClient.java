@@ -10,15 +10,19 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import org.apache.commons.io.IOUtils;
+import us.potatoboy.petowner.mixin.FoxTrustedAccessor;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -35,11 +39,10 @@ public class PetOwnerClient implements ClientModInitializer {
                 if (!playerEntity.getMainHandStack().isEmpty()) return ActionResult.PASS;
             }
 
-            UUID ownerId = getOwnerId(entityHitResult.getEntity());
-
-            if (ownerId != null) {
-
-                if (playerEntity.getUuid().equals(ownerId)) return ActionResult.PASS;
+            for (UUID ownerId : getOwnerIds(entityHitResult.getEntity()))
+            {
+                if (ownerId == null) continue;
+                if (playerEntity.getUuid().equals(ownerId)) continue;
 
                 CompletableFuture.runAsync(() -> {
                     try {
@@ -52,6 +55,7 @@ public class PetOwnerClient implements ClientModInitializer {
                     }
                 });
             }
+
             return ActionResult.PASS;
         }));
     }
@@ -67,17 +71,26 @@ public class PetOwnerClient implements ClientModInitializer {
         return object.get("name").getAsString();
     }
 
-    private static UUID getOwnerId(Entity entity) {
+    private static List<UUID> getOwnerIds(Entity entity) {
         if (entity instanceof TameableEntity) {
-            if (((TameableEntity) entity).isTamed()) {
-                return ((TameableEntity) entity).getOwnerUuid();
+            TameableEntity tameableEntity = (TameableEntity) entity;
+
+            if (tameableEntity.isTamed()) {
+                return Arrays.asList(tameableEntity.getOwnerUuid());
             }
         }
 
         if (entity instanceof HorseBaseEntity) {
-            if (((HorseBaseEntity) entity).isTame()) {
-                return ((HorseBaseEntity) entity).getOwnerUuid();
+            HorseBaseEntity horseBaseEntity = (HorseBaseEntity) entity;
+
+            if (horseBaseEntity.isTame()) {
+                return Arrays.asList(horseBaseEntity.getOwnerUuid());
             }
+        }
+
+        if (entity instanceof FoxEntity) {
+            FoxEntity foxEntity = (FoxEntity) entity;
+            return ((FoxTrustedAccessor)foxEntity).getTrusedIds();
         }
 
         return null;
