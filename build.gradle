@@ -27,15 +27,19 @@ dependencies {
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
 
-    modImplementation "io.github.prospector:modmenu:1.14.5+build.30"
+    modApi "me.shedaniel.cloth:config-2:4.7.0-unstable", {
+        exclude group: "net.fabricmc.fabric-api"
+    }
+    include "me.shedaniel.cloth:config-2:4.7.0-unstable"
 
-    modApi "me.sargunvohra.mcmods:autoconfig1u:3.2.0-unstable"
-    modApi "me.shedaniel.cloth:config-2:4.6.0"
-
+    modApi "me.sargunvohra.mcmods:autoconfig1u:3.2.0-unstable", {
+        exclude group: "net.fabricmc.fabric-api"
+    }
     include "me.sargunvohra.mcmods:autoconfig1u:3.2.0-unstable"
-    include "me.shedaniel.cloth:config-2:4.6.0"
 
-    modRuntime "curse.maven:auth-me:3015238"
+    modImplementation "io.github.prospector:modmenu:1.14.6+build.31", {
+        exclude group: "net.fabricmc.fabric-api"
+    }
 }
 
 processResources {
