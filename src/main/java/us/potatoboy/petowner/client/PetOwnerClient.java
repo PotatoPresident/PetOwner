@@ -21,6 +21,7 @@ import us.potatoboy.petowner.mixin.FoxTrustedAccessor;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -39,7 +40,7 @@ public class PetOwnerClient implements ClientModInitializer {
                 if (!playerEntity.getMainHandStack().isEmpty()) return ActionResult.PASS;
             }
 
-            for (UUID ownerId : getOwnerIds(entityHitResult.getEntity()))
+            for (UUID ownerId : getOwnerIds(entity))
             {
                 if (ownerId == null) continue;
                 if (playerEntity.getUuid().equals(ownerId)) continue;
@@ -93,6 +94,6 @@ public class PetOwnerClient implements ClientModInitializer {
             return ((FoxTrustedAccessor)foxEntity).getTrusedIds();
         }
 
-        return null;
+        return new ArrayList<>();
     }
 }
