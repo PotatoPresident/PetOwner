@@ -62,6 +62,7 @@ public class PetOwnerClient implements ClientModInitializer {
     }
 
     private static String getNameFromId(UUID uuid) throws Exception {
+        System.out.println("Getting name of uuid: " + uuid);
         String url_ = "https://api.mojang.com/user/profiles/%s/names";
         URL url = new URL(String.format(url_, uuid.toString().replace("-", "")));
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
