@@ -3,7 +3,7 @@
   "id": "petowner",
   "version": "${version}",
   "name": "Pet Owner",
-  "description": "Click animal with empty hand to display owner",
+  "description": "Shows who owns a pet",
   "authors": [
     "potatoboy9999"
   ],

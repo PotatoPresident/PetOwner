@@ -8,11 +8,11 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = project.archives_base_name
-version = project.minecraft_version + "+-" + project.mod_version
+version = project.mod_version + "-" + project.minecraft_version + "+"
 group = project.maven_group
 
 repositories {
-    jcenter();
+    jcenter()
 }
 
 dependencies {
@@ -40,6 +40,8 @@ dependencies {
     modImplementation "io.github.prospector:modmenu:1.14.6+build.31", {
         exclude group: "net.fabricmc.fabric-api"
     }
+
+    modRuntime "curse.maven:auth-me:3055415"
 }
 
 processResources {
@@ -66,6 +68,7 @@ tasks.withType(JavaCompile) {
 // if it is present.
 // If you remove this task, sources will not be generated.
 task sourcesJar(type: Jar, dependsOn: classes) {
+    //noinspection GrDeprecatedAPIUsage
     classifier = "sources"
     from sourceSets.main.allSource
 }
@@ -77,12 +80,17 @@ jar {
 // configure the maven publication
 publishing {
     publications {
+        //noinspection GroovyAssignabilityCheck
         mavenJava(MavenPublication) {
             // add all the jars that should be included when publishing to maven
+            //noinspection GroovyAssignabilityCheck
             artifact(remapJar) {
+                //noinspection GroovyAssignabilityCheck
                 builtBy remapJar
             }
+            //noinspection GroovyAssignabilityCheck
             artifact(sourcesJar) {
+                //noinspection GroovyAssignabilityCheck
                 builtBy remapSourcesJar
             }
         }
