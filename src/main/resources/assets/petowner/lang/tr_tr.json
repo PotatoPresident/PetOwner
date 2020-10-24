@@ -1,0 +1,10 @@
+{
+  "text.autoconfig.petowner.title": "Pet Owner (Evcil Hayvan Sahibi) Ayarları",
+  "text.autoconfig.petowner.category.nametag": "İsim Etiketi",
+  "text.autoconfig.petowner.option.nametag": "Sahibini Hayvanın İsim Etiketinde Göster",
+  "text.autoconfig.petowner.category.click": "Tıklama",
+  "text.autoconfig.petowner.option.click": "Sahibini Göstermek için Hayvana Sağ Tıkla",
+  "text.autoconfig.petowner.option.requireEmptyHand": "Eli Boş Olmalı",
+  "text.petowner.message.owner": "§3Sahibi: %s",
+  "text.petowner.message.error": "§4Bir şey yanlış gitti"
+}
