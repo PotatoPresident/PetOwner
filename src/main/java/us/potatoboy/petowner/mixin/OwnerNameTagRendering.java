@@ -58,7 +58,6 @@ public abstract class OwnerNameTagRendering {
             double d = this.dispatcher.getSquaredDistanceToCamera(entity);
             @SuppressWarnings("rawtypes") EntityRenderer entityRenderer = (EntityRenderer)(Object)this;
             if (d <= 4096.0D) {
-                boolean bl = !entity.isSneaky();
                 float f = entity.getHeight() + 0.5F;
                 int i = 10 + (10 * index);
                 matrices.push();
@@ -66,14 +65,10 @@ public abstract class OwnerNameTagRendering {
                 matrices.multiply(this.dispatcher.getRotation());
                 matrices.scale(-0.025F, -0.025F, 0.025F);
                 Matrix4f matrix4f = matrices.peek().getModel();
-                float g = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25F);
-                int j = (int)(g * 255.0F) << 24;
                 TextRenderer textRenderer = entityRenderer.getFontRenderer();
                 float h = (float)(-textRenderer.getWidth(text) / 2);
-                textRenderer.draw(text, h, (float)i, 553648127, false, matrix4f, vertexConsumers, bl, j, light);
-                if (bl) {
-                    textRenderer.draw(text, h, (float)i, -1, false, matrix4f, vertexConsumers, false, 0, light);
-                }
+
+                textRenderer.draw(text, h, (float)i, -1, false, matrix4f, vertexConsumers, false, 0, light);
 
                 matrices.pop();
                 index++;
