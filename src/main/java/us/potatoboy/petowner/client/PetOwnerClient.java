@@ -1,5 +1,8 @@
 package us.potatoboy.petowner.client;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.mojang.authlib.GameProfile;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
@@ -17,13 +20,27 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import us.potatoboy.petowner.mixin.FoxTrustedAccessor;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 @Environment(EnvType.CLIENT)
 public class PetOwnerClient implements ClientModInitializer {
+    private static final LoadingCache<UUID, Optional<String>> usernameCache = CacheBuilder
+            .newBuilder()
+            .expireAfterWrite(6, TimeUnit.HOURS)
+            .build(new CacheLoader<UUID, Optional<String>>() {
+                @Override
+                public Optional<String> load(UUID key) throws Exception {
+                    CompletableFuture.runAsync(() -> {
+                        GameProfile playerProfile = new GameProfile(key, null);
+                        playerProfile = MinecraftClient.getInstance().getSessionService().fillProfileProperties(playerProfile, false);
+                        usernameCache.put(key, Optional.ofNullable(playerProfile.getName()));
+                    });
+
+                    return Optional.of("Waiting...");
+                }
+            });
 
     @Override
     public void onInitializeClient() {
@@ -43,10 +60,10 @@ public class PetOwnerClient implements ClientModInitializer {
                 if (ownerId == null) continue;
                 if (playerEntity.getUuid().equals(ownerId)) continue;
 
-                String username = PetOwnerClient.getNameFromId(ownerId);
+                Optional<String> username = PetOwnerClient.getNameFromId(ownerId);
 
-                if (username != null) {
-                    playerEntity.sendMessage(new TranslatableText("text.petowner.message.owner", username), false);
+                if (username.isPresent()) {
+                    playerEntity.sendMessage(new TranslatableText("text.petowner.message.owner", username.get()), false);
                 } else {
                     playerEntity.sendMessage(new TranslatableText("text.petowner.message.error"), false);
                 }
@@ -56,11 +73,8 @@ public class PetOwnerClient implements ClientModInitializer {
         }));
     }
 
-    public static String getNameFromId(UUID uuid){
-        GameProfile playerProfile = new GameProfile(uuid, null);
-        playerProfile = MinecraftClient.getInstance().getSessionService().fillProfileProperties(playerProfile, false);
-
-        return playerProfile.getName();
+    public static Optional<String> getNameFromId(UUID uuid) {
+        return usernameCache.getUnchecked(uuid);
     }
 
     public static List<UUID> getOwnerIds(Entity entity) {
