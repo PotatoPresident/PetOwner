@@ -21,6 +21,7 @@ import us.potatoboy.petowner.client.PetOwnerClient;
 import us.potatoboy.petowner.client.PetOwnerConfig;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Mixin(EntityRenderer.class)
@@ -47,12 +48,12 @@ public abstract class OwnerNameTagRendering {
 
             Text text;
 
-            String usernameString = PetOwnerClient.getNameFromId(ownerId);
+            Optional<String> usernameString = PetOwnerClient.getNameFromId(ownerId);
 
-            if (usernameString == null) {
-                text = new TranslatableText("text.petowner.message.owner", new TranslatableText("text.petowner.message.error"));
+            if (usernameString.isPresent()) {
+                text = new TranslatableText("text.petowner.message.owner", usernameString.get());
             } else {
-                text = new TranslatableText("text.petowner.message.owner", usernameString);
+                text = new TranslatableText("text.petowner.message.owner", new TranslatableText("text.petowner.message.error"));
             }
 
             double d = this.dispatcher.getSquaredDistanceToCamera(entity);
