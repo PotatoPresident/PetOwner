@@ -1,6 +1,5 @@
 package us.potatoboy.petowner.mixin;
 
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -18,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import us.potatoboy.petowner.client.PetOwnerClient;
-import us.potatoboy.petowner.client.PetOwnerConfig;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,54 +24,52 @@ import java.util.UUID;
 
 @Mixin(EntityRenderer.class)
 public abstract class OwnerNameTagRendering {
-    @Final
-    @Shadow
-    protected EntityRenderDispatcher dispatcher;
+	@Final
+	@Shadow
+	protected EntityRenderDispatcher dispatcher;
 
-    @Inject(method = "render", at = @At("HEAD"))
-    private void render(Entity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
-        if (MinecraftClient.getInstance().options.hudHidden) return;
+	@Inject(method = "render", at = @At("HEAD"))
+	private void render(Entity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
+		//If HUD is hidden
+		if (MinecraftClient.getInstance().options.hudHidden) return;
+		//If the key is bound and owner is disabled
+		if (!PetOwnerClient.keyBinding.isUnbound() && !PetOwnerClient.enabled) return;
+		//If the entity is not targeted
+		if (dispatcher.targetedEntity != entity) return;
 
-        PetOwnerConfig config = AutoConfig.getConfigHolder(PetOwnerConfig.class).getConfig();
-        if (!config.nametag) return;
+		List<UUID> ownerIds = PetOwnerClient.getOwnerIds(entity);
+		if (ownerIds.isEmpty()) return;
 
-        if (dispatcher.targetedEntity != entity) return;
+		for (int i = 0; i < ownerIds.size(); i++) {
+			UUID ownerId = ownerIds.get(i);
+			if (ownerId == null) return;
 
-        List<UUID> ownerIds = PetOwnerClient.getOwnerIds(entity);
-        if (ownerIds.isEmpty()) return;
+			Optional<String> usernameString = PetOwnerClient.getNameFromId(ownerId);
 
-        int index = 0;
-        for (UUID ownerId : ownerIds) {
-            if (ownerId == null) return;
+			Text text = new TranslatableText("text.petowner.message.owner", usernameString.isPresent() ?
+					usernameString.get() : new TranslatableText("text.petowner.message.error"));
 
-            Text text;
+			double d = this.dispatcher.getSquaredDistanceToCamera(entity);
+			@SuppressWarnings("rawtypes") EntityRenderer entityRenderer = (EntityRenderer) (Object) this;
+			if (d <= 4096.0D) {
+				float height = entity.getHeight() + 0.5F;
+				int y = 10 + (10 * i);
+				matrices.push();
+				matrices.translate(0.0D, height, 0.0D);
+				matrices.multiply(this.dispatcher.getRotation());
+				matrices.scale(-0.025F, -0.025F, 0.025F);
+				Matrix4f matrix4f = matrices.peek().getModel();
+				TextRenderer textRenderer = entityRenderer.getFontRenderer();
+				float x = (float) (-textRenderer.getWidth(text) / 2);
 
-            Optional<String> usernameString = PetOwnerClient.getNameFromId(ownerId);
+				float backgroundOpacity = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25F);
+				int backgroundColor = (int) (backgroundOpacity * 255.0F) << 24;
 
-            if (usernameString.isPresent()) {
-                text = new TranslatableText("text.petowner.message.owner", usernameString.get());
-            } else {
-                text = new TranslatableText("text.petowner.message.owner", new TranslatableText("text.petowner.message.error"));
-            }
+				textRenderer.draw(text, x, (float) y, 553648127, false, matrix4f, vertexConsumers, true, backgroundColor, light);
+				textRenderer.draw(text, x, (float) y, -1, false, matrix4f, vertexConsumers, false, 0, light);
 
-            double d = this.dispatcher.getSquaredDistanceToCamera(entity);
-            @SuppressWarnings("rawtypes") EntityRenderer entityRenderer = (EntityRenderer)(Object)this;
-            if (d <= 4096.0D) {
-                float f = entity.getHeight() + 0.5F;
-                int i = 10 + (10 * index);
-                matrices.push();
-                matrices.translate(0.0D, f, 0.0D);
-                matrices.multiply(this.dispatcher.getRotation());
-                matrices.scale(-0.025F, -0.025F, 0.025F);
-                Matrix4f matrix4f = matrices.peek().getModel();
-                TextRenderer textRenderer = entityRenderer.getFontRenderer();
-                float h = (float)(-textRenderer.getWidth(text) / 2);
-
-                textRenderer.draw(text, h, (float)i, -1, false, matrix4f, vertexConsumers, false, 0, light);
-
-                matrices.pop();
-                index++;
-            }
-        }
-    }
+				matrices.pop();
+			}
+		}
+	}
 }

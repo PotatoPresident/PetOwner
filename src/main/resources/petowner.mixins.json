@@ -3,12 +3,10 @@
   "minVersion": "0.8",
   "package": "us.potatoboy.petowner.mixin",
   "compatibilityLevel": "JAVA_8",
-  "mixins": [],
   "client": [
     "FoxTrustedAccessor",
     "OwnerNameTagRendering"
   ],
-  "server": [],
   "injectors": {
     "defaultRequire": 1
   }

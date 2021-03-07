@@ -1,10 +1,16 @@
 {
-  "text.autoconfig.petowner.title": "Pet Owner Config",
-  "text.autoconfig.petowner.category.nametag": "Nametag",
-  "text.autoconfig.petowner.option.nametag": "Show Owner On Pet Nametag",
-  "text.autoconfig.petowner.category.click": "Click",
-  "text.autoconfig.petowner.option.click": "Right Click On Pet To Show Owner",
-  "text.autoconfig.petowner.option.requireEmptyHand": "Require Empty Hand",
+  "text.petowner.config.title": "Pet Owner Config",
+  "text.petowner.config.button.confirm": "Confirm",
+  "text.petowner.config.mode.hold": "Hold",
+  "text.petowner.config.mode.tooltip.hold": "Only show owner when holding keybind",
+  "text.petowner.config.mode.toggle": "Toggle",
+  "text.petowner.config.mode.tooltip.toggle": "Toggle showing the owner when pressing keybind",
+
   "text.petowner.message.owner": "§3Owner: %s",
-  "text.petowner.message.error": "§4Something went wrong"
+  "text.petowner.message.error": "§4Something went wrong",
+  "text.petowner.message.enabled": "§a§lShowing §rPet Names",
+  "text.petowner.message.disabled": "§c§lHiding §rPet Names",
+
+  "category.petowner.title": "Pet Owner",
+  "key.petowner.hide": "Hide Owner"
 }

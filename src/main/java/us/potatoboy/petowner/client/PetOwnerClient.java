@@ -4,101 +4,115 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.mojang.authlib.GameProfile;
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.event.player.UseEntityCallback;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import us.potatoboy.petowner.client.config.PetOwnerConfig;
 import us.potatoboy.petowner.mixin.FoxTrustedAccessor;
 
+import java.io.File;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-@Environment(EnvType.CLIENT)
 public class PetOwnerClient implements ClientModInitializer {
-    private static final LoadingCache<UUID, Optional<String>> usernameCache = CacheBuilder
-            .newBuilder()
-            .expireAfterWrite(6, TimeUnit.HOURS)
-            .build(new CacheLoader<UUID, Optional<String>>() {
-                @Override
-                public Optional<String> load(UUID key) throws Exception {
-                    CompletableFuture.runAsync(() -> {
-                        GameProfile playerProfile = new GameProfile(key, null);
-                        playerProfile = MinecraftClient.getInstance().getSessionService().fillProfileProperties(playerProfile, false);
-                        usernameCache.put(key, Optional.ofNullable(playerProfile.getName()));
-                    });
+	public static final Logger LOGGER = LogManager.getLogger("PetOwner");
 
-                    return Optional.of("Waiting...");
-                }
-            });
+	public static boolean enabled = true;
+	public static KeyBinding keyBinding;
+	public static PetOwnerConfig config;
 
-    @Override
-    public void onInitializeClient() {
-        AutoConfig.register(PetOwnerConfig.class, JanksonConfigSerializer::new);
-        PetOwnerConfig config = AutoConfig.getConfigHolder(PetOwnerConfig.class).getConfig();
+	private static final LoadingCache<UUID, Optional<String>> usernameCache = CacheBuilder
+			.newBuilder()
+			.expireAfterWrite(6, TimeUnit.HOURS)
+			.build(new CacheLoader<UUID, Optional<String>>() {
+				@Override
+				public Optional<String> load(UUID key) {
+					CompletableFuture.runAsync(() -> {
+						GameProfile playerProfile = new GameProfile(key, null);
+						playerProfile = MinecraftClient.getInstance().getSessionService().fillProfileProperties(playerProfile, false);
+						usernameCache.put(key, Optional.ofNullable(playerProfile.getName()));
+					});
 
-        UseEntityCallback.EVENT.register(((playerEntity, world, hand, entity, entityHitResult) -> {
-            if (!config.click) return ActionResult.PASS;
+					return Optional.of("Waiting...");
+				}
+			});
 
-            if (!hand.equals(Hand.MAIN_HAND)) return ActionResult.PASS;
-            if (config.requireEmptyHand) {
-                if (!playerEntity.getMainHandStack().isEmpty()) return ActionResult.PASS;
-            }
+	@Override
+	public void onInitializeClient() {
+		config = PetOwnerConfig.loadConfig(new File(FabricLoader.getInstance().getConfigDir().toFile(), "petowner.json"));
 
-            for (UUID ownerId : getOwnerIds(entity))
-            {
-                if (ownerId == null) continue;
-                if (playerEntity.getUuid().equals(ownerId)) continue;
+		keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+				"key.petowner.hide",
+				InputUtil.UNKNOWN_KEY.getCode(),
+				"category.petowner.title"
+		));
 
-                Optional<String> username = PetOwnerClient.getNameFromId(ownerId);
+		ClientTickEvents.END_CLIENT_TICK.register(minecraftClient -> {
+			if (keyBinding.isUnbound()) return;
 
-                if (username.isPresent()) {
-                    playerEntity.sendMessage(new TranslatableText("text.petowner.message.owner", username.get()), false);
-                } else {
-                    playerEntity.sendMessage(new TranslatableText("text.petowner.message.error"), false);
-                }
-            }
+			if (!config.keybindMode) {
+				//Hold mode
+				enabled = keyBinding.isPressed();
 
-            return ActionResult.PASS;
-        }));
-    }
+				if (keyBinding.isPressed() || keyBinding.wasPressed()) {
+					if (minecraftClient.player != null) {
+						minecraftClient.player.sendMessage(new TranslatableText(enabled ? "text.petowner.message.enabled" : "text.petowner.message.disabled"), true);
+					}
+				}
+			} else {
+				//Toggle mode
+				while (keyBinding.wasPressed()) {
+					enabled = !enabled;
+					if (minecraftClient.player != null) {
+						minecraftClient.player.sendMessage(new TranslatableText(enabled ? "text.petowner.message.enabled" : "text.petowner.message.disabled"), true);
+					}
+				}
+			}
+		});
+	}
 
-    public static Optional<String> getNameFromId(UUID uuid) {
-        return usernameCache.getUnchecked(uuid);
-    }
+	public static Optional<String> getNameFromId(UUID uuid) {
+		return usernameCache.getUnchecked(uuid);
+	}
 
-    public static List<UUID> getOwnerIds(Entity entity) {
-        if (entity instanceof TameableEntity) {
-            TameableEntity tameableEntity = (TameableEntity) entity;
+	public static List<UUID> getOwnerIds(Entity entity) {
+		if (entity instanceof TameableEntity) {
+			TameableEntity tameableEntity = (TameableEntity) entity;
 
-            if (tameableEntity.isTamed()) {
-                return Collections.singletonList(tameableEntity.getOwnerUuid());
-            }
-        }
+			if (tameableEntity.isTamed()) {
+				return Collections.singletonList(tameableEntity.getOwnerUuid());
+			}
+		}
 
-        if (entity instanceof HorseBaseEntity) {
-            HorseBaseEntity horseBaseEntity = (HorseBaseEntity) entity;
+		if (entity instanceof HorseBaseEntity) {
+			HorseBaseEntity horseBaseEntity = (HorseBaseEntity) entity;
 
-            if (horseBaseEntity.isTame()) {
-                return Collections.singletonList(horseBaseEntity.getOwnerUuid());
-            }
-        }
+			if (horseBaseEntity.isTame()) {
+				return Collections.singletonList(horseBaseEntity.getOwnerUuid());
+			}
+		}
 
-        if (entity instanceof FoxEntity) {
-            FoxEntity foxEntity = (FoxEntity) entity;
-            return ((FoxTrustedAccessor)foxEntity).getTrusedIds();
-        }
+		if (entity instanceof FoxEntity) {
+			FoxEntity foxEntity = (FoxEntity) entity;
+			return ((FoxTrustedAccessor) foxEntity).getTrusedIds();
+		}
 
-        return new ArrayList<>();
-    }
+		return new ArrayList<>();
+	}
+
+	public static void saveConfig () {
+		config.saveConfig(new File(FabricLoader.getInstance().getConfigDir().toFile(), "petowner.json"));
+	}
 }
