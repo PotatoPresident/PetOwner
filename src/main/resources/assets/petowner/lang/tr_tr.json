@@ -1,4 +1,16 @@
 {
+  "text.petowner.config.title": "Pet Owner (Evcil Hayvan Sahibi) Ayarları",
+  "text.petowner.config.button.confirm": "Onayla",
+  "text.petowner.config.mode.hold": "Basılı Tut",
+  "text.petowner.config.mode.tooltip.hold": "Atanan tuşa yalnızca basılı tuttuğunda sahibi göster",
+  "text.petowner.config.mode.toggle": "Aç/Kapa",
+  "text.petowner.config.mode.tooltip.toggle": "Atanan tuşa basınca sahibi göster/gizle",
+
   "text.petowner.message.owner": "§3Sahibi: %s",
-  "text.petowner.message.error": "§4Bir şey yanlış gitti"
+  "text.petowner.message.error": "§4Bir şey yanlış gitti",
+  "text.petowner.message.enabled": "§a§lGösteriliyor: §rEvcil Hayvan İsimleri",
+  "text.petowner.message.disabled": "§c§lGizleniyor: §rEvcil Hayvan İsimleri",
+
+  "category.petowner.title": "Pet Owner (Evcil Hayvan Sahibi)",
+  "key.petowner.hide": "Sahibi Gizle"
 }
