@@ -1,4 +1,16 @@
 {
-  "text.petowner.message.owner": "§3该宠物归属于: %s",
-  "text.petowner.message.error": "§4出现了一点小问题"
+  "text.petowner.config.title": "宠物拥有者配置 (Pet Owner)",
+  "text.petowner.config.button.confirm": "确定",
+  "text.petowner.config.mode.hold": "保持",
+  "text.petowner.config.mode.tooltip.hold": "仅在按下快捷键时显示拥有者",
+  "text.petowner.config.mode.toggle": "切换",
+  "text.petowner.config.mode.tooltip.toggle": "按下快捷键时切换是否显示拥有者",
+
+  "text.petowner.message.owner": "§3拥有者: %s",
+  "text.petowner.message.error": "§4出现了一些问题",
+  "text.petowner.message.enabled": "已§a§l显示§r宠物名字",
+  "text.petowner.message.disabled": "已§c§l隐藏§r宠物名字",
+
+  "category.petowner.title": "宠物拥有者",
+  "key.petowner.hide": "隐藏宠物拥有者"
 }
