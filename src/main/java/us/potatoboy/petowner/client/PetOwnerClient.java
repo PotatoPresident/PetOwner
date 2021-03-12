@@ -106,7 +106,7 @@ public class PetOwnerClient implements ClientModInitializer {
 
 		if (entity instanceof FoxEntity) {
 			FoxEntity foxEntity = (FoxEntity) entity;
-			return ((FoxTrustedAccessor) foxEntity).getTrusedIds();
+			return ((FoxTrustedAccessor) foxEntity).getTrustedIds();
 		}
 
 		return new ArrayList<>();

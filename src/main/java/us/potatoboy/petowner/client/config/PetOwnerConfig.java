@@ -23,7 +23,7 @@ public class PetOwnerConfig {
 			try (
 					FileInputStream fileInputStream = new FileInputStream(file);
 					InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
-					BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+					BufferedReader bufferedReader = new BufferedReader(inputStreamReader)
 			) {
 				config = GSON.fromJson(bufferedReader, PetOwnerConfig.class);
 			} catch (IOException e) {
@@ -41,7 +41,7 @@ public class PetOwnerConfig {
 	public void saveConfig(File config) {
 		try (
 				FileOutputStream stream = new FileOutputStream(config);
-				Writer writer = new OutputStreamWriter(stream, StandardCharsets.UTF_8);
+				Writer writer = new OutputStreamWriter(stream, StandardCharsets.UTF_8)
 		) {
 			GSON.toJson(this, writer);
 		} catch (IOException e) {

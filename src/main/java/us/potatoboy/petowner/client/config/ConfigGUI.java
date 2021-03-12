@@ -3,8 +3,6 @@ package us.potatoboy.petowner.client.config;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.options.AttackIndicator;
-import net.minecraft.client.options.CyclingOption;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
@@ -12,8 +10,6 @@ public class ConfigGUI extends Screen {
 	private final Screen parent;
 
 	private KeybindModeButtonWidget keybindModeButtonWidget;
-
-	private ButtonWidget confirm;
 
 	public ConfigGUI(Screen parent) {
 		super(new TranslatableText("text.petowner.config.title"));
@@ -27,7 +23,7 @@ public class ConfigGUI extends Screen {
 
 		keybindModeButtonWidget = addButton(new KeybindModeButtonWidget(10, 30, 175, 20));
 
-		confirm = addButton(new ButtonWidget(width - 220, height - 30, 100, 20, new TranslatableText("text.petowner.config.button.confirm"), (onPress) -> {
+		addButton(new ButtonWidget(width - 220, height - 30, 100, 20, new TranslatableText("text.petowner.config.button.confirm"), (onPress) -> {
 			keybindModeButtonWidget.saveValue();
 			client.openScreen(parent);
 		}));

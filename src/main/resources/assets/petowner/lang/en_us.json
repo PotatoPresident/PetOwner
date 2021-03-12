@@ -2,9 +2,9 @@
   "text.petowner.config.title": "Pet Owner Config",
   "text.petowner.config.button.confirm": "Confirm",
   "text.petowner.config.mode.hold": "Hold",
-  "text.petowner.config.mode.tooltip.hold": "Only show owner when holding keybind",
+  "text.petowner.config.mode.tooltip.hold": "Only show owner when holding keybinding",
   "text.petowner.config.mode.toggle": "Toggle",
-  "text.petowner.config.mode.tooltip.toggle": "Toggle showing the owner when pressing keybind",
+  "text.petowner.config.mode.tooltip.toggle": "Toggle showing the owner when pressing keybinding",
 
   "text.petowner.message.owner": "§3Owner: %s",
   "text.petowner.message.error": "§4Something went wrong",

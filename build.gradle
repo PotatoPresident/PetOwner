@@ -1,7 +1,6 @@
 plugins {
-    id 'fabric-loom' version '0.5-SNAPSHOT'
+    id 'fabric-loom' version '0.6-SNAPSHOT'
     id 'maven-publish'
-    id ("com.wynprice.cursemaven") version "2.1.5"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -23,7 +22,6 @@ dependencies {
 
     // Fabric API
     Set<String> apiModules = [
-            "fabric-api-base",
             "fabric-key-binding-api-v1",
             "fabric-lifecycle-events-v1"
     ]
