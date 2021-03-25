@@ -1,0 +1,10 @@
+  {
+  "text.autoconfig.petowner.title": "Pengaturan",
+  "text.autoconfig.petowner.category.nametag": "Nama",
+  "text.autoconfig.petowner.option.nametag": "Tampilkan Pemiliknya Di Nama Peliharaan",
+  "text.autoconfig.petowner.category.click": "Klik",
+  "text.autoconfig.petowner.option.click": "Klik Kanan Peliharaan Untuk Menampilkan Pemiliknya",
+  "text.autoconfig.petowner.option.requireEmptyHand": "Membutuhkan Tangan Kosong",
+  "text.petowner.message.owner": "§3Pemilik : %s",
+  "text.petowner.message.error": "$3Ada sesuatu yang salah"
+}
