@@ -1,0 +1,16 @@
+  {
+  "text.petowner.config.title": "Pengaturan",
+  "text.petowner.config.button.confirm": "Konfirmasi",
+  "text.petowner.config.mode.hold": "Tahan",
+  "text.petowner.config.mode.tooltip.hold": "Hanya tampilkan pemilik peliharaan saat menahan keybinding",
+  "text.petowner.config.mode.toggle": "Menampilkan / Menyembunyikan",
+  "text.petowner.config.mode.tooltip.toggle": "Menampilkan / Menyembunyikan pemilik saat menekan keybinding",
+
+  "text.petowner.message.owner": "§3Pemilik Peliharaan: %s",
+  "text.petowner.message.error": "§4Ada yang salah",
+  "text.petowner.message.enabled": "§a§lMenampilkan §rNama Peliharaan",
+  "text.petowner.message.disabled": "§c§lMenyembunyikan §rNama Peliharaan",
+
+  "category.petowner.title": "Pemilik Peliharaan",
+  "key.petowner.hide": "Menyembunyikan Pemilik Peliharaan"
+}
