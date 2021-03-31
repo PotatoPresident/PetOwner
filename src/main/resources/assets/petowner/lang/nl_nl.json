@@ -1,0 +1,10 @@
+{
+  "text.autoconfig.petowner.title": "Pet Owner Config",
+  "text.autoconfig.petowner.category.nametag": "Nametag",
+  "text.autoconfig.petowner.option.nametag": "Show Owner On Pet Nametag",
+  "text.autoconfig.petowner.category.click": "Click",
+  "text.autoconfig.petowner.option.click": "Right Click On Pet To Show Owner",
+  "text.autoconfig.petowner.option.requireEmptyHand": "Require Empty Hand",
+  "text.petowner.message.owner": "§3Owner: %s",
+  "text.petowner.message.error": "§4Something went wrong"
+}
