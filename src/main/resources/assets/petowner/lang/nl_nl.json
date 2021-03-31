@@ -1,10 +1,10 @@
 {
-  "text.autoconfig.petowner.title": "Pet Owner Config",
-  "text.autoconfig.petowner.category.nametag": "Nametag",
-  "text.autoconfig.petowner.option.nametag": "Show Owner On Pet Nametag",
-  "text.autoconfig.petowner.category.click": "Click",
-  "text.autoconfig.petowner.option.click": "Right Click On Pet To Show Owner",
-  "text.autoconfig.petowner.option.requireEmptyHand": "Require Empty Hand",
-  "text.petowner.message.owner": "§3Owner: %s",
-  "text.petowner.message.error": "§4Something went wrong"
+  "text.autoconfig.petowner.title": "Huisdiereigenaar configuratie",
+  "text.autoconfig.petowner.category.nametag": "Naamkaartje",
+  "text.autoconfig.petowner.option.nametag": "Toon eigenaar op naamplaatje huisdier",
+  "text.autoconfig.petowner.category.click": "Klik",
+  "text.autoconfig.petowner.option.click": "Klik rechts op huisdier om eigenaar te tonen",
+  "text.autoconfig.petowner.option.requireEmptyHand": "Vereist een lege hand",
+  "text.petowner.message.owner": "§3Eigenaar: %s",
+  "text.petowner.message.error": "§4Er is iets misgegaan"
 }
