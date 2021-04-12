@@ -27,7 +27,7 @@
       "us.potatoboy.petowner.client.PetOwnerClient"
     ],
     "modmenu": [
-      "us.potatoboy.petowner.client.ModMenuIntegration"
+      "us.potatoboy.petowner.client.config.ModMenuIntegration"
     ]
   },
   "depends": {

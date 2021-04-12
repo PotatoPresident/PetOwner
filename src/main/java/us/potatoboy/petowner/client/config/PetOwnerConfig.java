@@ -10,11 +10,9 @@ import java.nio.charset.StandardCharsets;
 public class PetOwnerConfig {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-	/**
-	 * When true mode is toggle
-	 * When false mode is hold
-	 */
-	public boolean keybindMode = true;
+	public PetOwnerClient.KeybindMode keybindMode = PetOwnerClient.KeybindMode.TOGGLE;
+	public boolean alwaysShow = false;
+	public boolean showKeybindMessage = false;
 
 	public static PetOwnerConfig loadConfig(File file) {
 		PetOwnerConfig config;

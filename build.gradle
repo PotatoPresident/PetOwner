@@ -12,6 +12,7 @@ group = project.maven_group
 
 repositories {
     maven { url "https://maven.terraformersmc.com/"}
+    maven { url "https://maven.shedaniel.me/" }
 }
 
 dependencies {
@@ -30,6 +31,8 @@ dependencies {
         modImplementation(fabricApi.module(it, project.fabric_version))
     }
 
+    modApi "me.shedaniel.cloth:cloth-config-lite-fabric:1.0.+"
+    include "me.shedaniel.cloth:cloth-config-lite-fabric:1.0.+"
 
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}", {
         exclude module: "fabric-api"

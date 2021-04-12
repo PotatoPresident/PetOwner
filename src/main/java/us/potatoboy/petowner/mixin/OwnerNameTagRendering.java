@@ -35,7 +35,7 @@ public abstract class OwnerNameTagRendering {
 		//If the key is bound and owner is disabled
 		if (!PetOwnerClient.keyBinding.isUnbound() && !PetOwnerClient.enabled) return;
 		//If the entity is not targeted
-		if (dispatcher.targetedEntity != entity) return;
+		if (dispatcher.targetedEntity != entity && !PetOwnerClient.config.alwaysShow) return;
 
 		List<UUID> ownerIds = PetOwnerClient.getOwnerIds(entity);
 		if (ownerIds.isEmpty()) return;

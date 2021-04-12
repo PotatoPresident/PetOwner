@@ -62,12 +62,11 @@ public class PetOwnerClient implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(minecraftClient -> {
 			if (keyBinding.isUnbound()) return;
 
-			if (!config.keybindMode) {
-				//Hold mode
+			if (config.keybindMode == KeybindMode.HOLD) {
 				enabled = keyBinding.isPressed();
 
 				if (keyBinding.isPressed() || keyBinding.wasPressed()) {
-					if (minecraftClient.player != null) {
+					if (minecraftClient.player != null && config.showKeybindMessage) {
 						minecraftClient.player.sendMessage(new TranslatableText(enabled ? "text.petowner.message.enabled" : "text.petowner.message.disabled"), true);
 					}
 				}
@@ -75,7 +74,7 @@ public class PetOwnerClient implements ClientModInitializer {
 				//Toggle mode
 				while (keyBinding.wasPressed()) {
 					enabled = !enabled;
-					if (minecraftClient.player != null) {
+					if (minecraftClient.player != null && config.showKeybindMessage) {
 						minecraftClient.player.sendMessage(new TranslatableText(enabled ? "text.petowner.message.enabled" : "text.petowner.message.disabled"), true);
 					}
 				}
@@ -114,5 +113,10 @@ public class PetOwnerClient implements ClientModInitializer {
 
 	public static void saveConfig () {
 		config.saveConfig(new File(FabricLoader.getInstance().getConfigDir().toFile(), "petowner.json"));
+	}
+
+	public enum KeybindMode {
+		TOGGLE,
+		HOLD
 	}
 }
