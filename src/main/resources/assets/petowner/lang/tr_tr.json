@@ -1,10 +1,8 @@
 {
   "text.petowner.config.title": "Pet Owner (Evcil Hayvan Sahibi) Ayarları",
-  "text.petowner.config.button.confirm": "Onayla",
-  "text.petowner.config.mode.hold": "Basılı Tut",
-  "text.petowner.config.mode.tooltip.hold": "Atanan tuşa yalnızca basılı tuttuğunda sahibi göster",
-  "text.petowner.config.mode.toggle": "Aç/Kapa",
-  "text.petowner.config.mode.tooltip.toggle": "Atanan tuşa basınca sahibi göster/gizle",
+  "text.petowner.config.mode": "Tuş atama modu (Yalnızca tuş tanımlıyken)",
+  "text.petowner.config.always_show": "Bakmazken bile sahibi her zaman göster",
+  "text.petowner.config.show_keybind_message": "Tuş atama mesajlarını göster",
 
   "text.petowner.message.owner": "§3Sahibi: %s",
   "text.petowner.message.error": "§4Bir şey yanlış gitti",
