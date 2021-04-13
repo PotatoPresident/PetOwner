@@ -1,6 +1,10 @@
 {
   "text.autoconfig.petowner.title": "宠物归属配置 §7(Pet Owner)",
+  "text.autoconfig.petowner.category.nametag": "名称标签",
+  "text.autoconfig.petowner.option.nametag": "在宠物的名称标签中显示拥有者",
+  "text.autoconfig.petowner.category.click": "单击",
+  "text.autoconfig.petowner.option.click": "右键单击宠物以显示其拥有者",
   "text.autoconfig.petowner.option.requireEmptyHand": "需要空手",
-  "text.petowner.message.owner": "§3该宠物归属于: %s",
+  "text.petowner.message.owner": "§3拥有者: %s",
   "text.petowner.message.error": "§4出现了一点小问题"
 }
