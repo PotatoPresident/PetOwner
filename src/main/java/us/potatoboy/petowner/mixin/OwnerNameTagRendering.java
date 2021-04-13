@@ -32,6 +32,8 @@ public abstract class OwnerNameTagRendering {
 	private void render(Entity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
 		//If HUD is hidden
 		if (MinecraftClient.getInstance().options.hudHidden) return;
+		//If the player is riding the entity
+		if (entity.hasPassenger(MinecraftClient.getInstance().player)) return;
 		//If the key is bound and owner is disabled
 		if (!PetOwnerClient.keyBinding.isUnbound() && !PetOwnerClient.enabled) return;
 		//If the entity is not targeted
