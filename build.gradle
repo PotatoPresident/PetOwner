@@ -23,6 +23,7 @@ dependencies {
 
     // Fabric API
     Set<String> apiModules = [
+            "fabric-api-base",
             "fabric-key-binding-api-v1",
             "fabric-lifecycle-events-v1"
     ]
