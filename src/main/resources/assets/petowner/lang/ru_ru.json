@@ -1,10 +1,4 @@
 {
-  "text.autoconfig.petowner.title": "Конфигурация Pet Owner",
-  "text.autoconfig.petowner.category.nametag": "Именная метка",
-  "text.autoconfig.petowner.option.nametag": "Показывать имя владельца на именной метке питомца",
-  "text.autoconfig.petowner.category.click": "Нажми",
-  "text.autoconfig.petowner.option.click": "ПКМ По питомцу чтобы увидеть имя владельца",
-  "text.autoconfig.petowner.option.requireEmptyHand": "Требовать пустую руку",
   "text.petowner.message.owner": "§3Владелец: %s",
   "text.petowner.message.error": "§4Что-то пошло не так"
 }
