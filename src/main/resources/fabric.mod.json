@@ -12,6 +12,13 @@
     "sources": "https://github.com/PotatoPresident/PetOwner/tree/master",
     "issues": "https://github.com/PotatoPresident/PetOwner/issues"
   },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/ByaVuebAPb"
+      }
+    }
+  },
   "license": "MIT",
   "icon": "logo.png",
   "environment": "client",
@@ -20,13 +27,14 @@
       "us.potatoboy.petowner.client.PetOwnerClient"
     ],
     "modmenu": [
-      "us.potatoboy.petowner.client.ModMenuIntegration"
+      "us.potatoboy.petowner.client.config.ModMenuIntegration"
     ]
   },
   "depends": {
+    "fabric-key-binding-api-v1": "*",
+    "fabric-lifecycle-events-v1": "*",
     "fabricloader": ">=0.7.2",
-    "fabric": "*",
-    "minecraft":"^1.16.2"
+    "minecraft":">=1.16.5"
   },
   "mixins": [
     "petowner.mixins.json"

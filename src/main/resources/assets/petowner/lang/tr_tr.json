@@ -1,10 +1,14 @@
 {
-  "text.autoconfig.petowner.title": "Pet Owner (Evcil Hayvan Sahibi) Ayarları",
-  "text.autoconfig.petowner.category.nametag": "İsim Etiketi",
-  "text.autoconfig.petowner.option.nametag": "Sahibini Hayvanın İsim Etiketinde Göster",
-  "text.autoconfig.petowner.category.click": "Tıklama",
-  "text.autoconfig.petowner.option.click": "Sahibini Göstermek için Hayvana Sağ Tıkla",
-  "text.autoconfig.petowner.option.requireEmptyHand": "Eli Boş Olmalı",
+  "text.petowner.config.title": "Pet Owner (Evcil Hayvan Sahibi) Ayarları",
+  "text.petowner.config.mode": "Tuş atama modu (Yalnızca tuş tanımlıyken)",
+  "text.petowner.config.always_show": "Bakmazken bile sahibi her zaman göster",
+  "text.petowner.config.show_keybind_message": "Tuş atama mesajlarını göster",
+
   "text.petowner.message.owner": "§3Sahibi: %s",
-  "text.petowner.message.error": "§4Bir şey yanlış gitti"
+  "text.petowner.message.error": "§4Bir şey yanlış gitti",
+  "text.petowner.message.enabled": "§a§lGösteriliyor: §rEvcil Hayvan İsimleri",
+  "text.petowner.message.disabled": "§c§lGizleniyor: §rEvcil Hayvan İsimleri",
+
+  "category.petowner.title": "Pet Owner (Evcil Hayvan Sahibi)",
+  "key.petowner.hide": "Sahibi Gizle"
 }
