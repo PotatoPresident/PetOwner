@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.FoxEntity;
@@ -36,7 +36,7 @@ public class PetOwnerClient implements ClientModInitializer {
 	private static final LoadingCache<UUID, Optional<String>> usernameCache = CacheBuilder
 			.newBuilder()
 			.expireAfterWrite(6, TimeUnit.HOURS)
-			.build(new CacheLoader<UUID, Optional<String>>() {
+			.build(new CacheLoader<>() {
 				@Override
 				public Optional<String> load(UUID key) {
 					CompletableFuture.runAsync(() -> {
@@ -87,24 +87,21 @@ public class PetOwnerClient implements ClientModInitializer {
 	}
 
 	public static List<UUID> getOwnerIds(Entity entity) {
-		if (entity instanceof TameableEntity) {
-			TameableEntity tameableEntity = (TameableEntity) entity;
+		if (entity instanceof TameableEntity tameableEntity) {
 
 			if (tameableEntity.isTamed()) {
 				return Collections.singletonList(tameableEntity.getOwnerUuid());
 			}
 		}
 
-		if (entity instanceof HorseBaseEntity) {
-			HorseBaseEntity horseBaseEntity = (HorseBaseEntity) entity;
+		if (entity instanceof HorseBaseEntity horseBaseEntity) {
 
 			if (horseBaseEntity.isTame()) {
 				return Collections.singletonList(horseBaseEntity.getOwnerUuid());
 			}
 		}
 
-		if (entity instanceof FoxEntity) {
-			FoxEntity foxEntity = (FoxEntity) entity;
+		if (entity instanceof FoxEntity foxEntity) {
 			return ((FoxTrustedAccessor) foxEntity).getTrustedIds();
 		}
 
