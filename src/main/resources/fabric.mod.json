@@ -31,10 +31,9 @@
     ]
   },
   "depends": {
-    "fabric-key-binding-api-v1": "*",
-    "fabric-lifecycle-events-v1": "*",
+    "fabric": "*",
     "fabricloader": ">=0.7.2",
-    "minecraft":">=1.16.5"
+    "minecraft":"1.17.x"
   },
   "mixins": [
     "petowner.mixins.json"
