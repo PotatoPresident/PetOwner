@@ -28,6 +28,8 @@ public abstract class OwnerNameTagRendering {
 	@Shadow
 	protected EntityRenderDispatcher dispatcher;
 
+	@Shadow public abstract TextRenderer getTextRenderer();
+
 	@Inject(method = "render", at = @At("HEAD"))
 	private void render(Entity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
 		//If HUD is hidden
@@ -52,7 +54,6 @@ public abstract class OwnerNameTagRendering {
 					usernameString.get() : new TranslatableText("text.petowner.message.error"));
 
 			double d = this.dispatcher.getSquaredDistanceToCamera(entity);
-			@SuppressWarnings("rawtypes") EntityRenderer entityRenderer = (EntityRenderer) (Object) this;
 			if (d <= 4096.0D) {
 				float height = entity.getHeight() + 0.5F;
 				int y = 10 + (10 * i);
@@ -60,8 +61,8 @@ public abstract class OwnerNameTagRendering {
 				matrices.translate(0.0D, height, 0.0D);
 				matrices.multiply(this.dispatcher.getRotation());
 				matrices.scale(-0.025F, -0.025F, 0.025F);
-				Matrix4f matrix4f = matrices.peek().getModel();
-				TextRenderer textRenderer = entityRenderer.getFontRenderer();
+				Matrix4f matrix4f = matrices.peek().getPositionMatrix();
+				TextRenderer textRenderer = this.getTextRenderer();
 				float x = (float) (-textRenderer.getWidth(text) / 2);
 
 				float backgroundOpacity = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25F);
