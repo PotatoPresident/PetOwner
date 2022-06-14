@@ -1,5 +1,7 @@
 package us.potatoboy.petowner.mixin;
 
+import com.mojang.logging.LogUtils;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -8,7 +10,6 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.Matrix4f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import us.potatoboy.petowner.client.PetOwnerClient;
+import us.potatoboy.petowner.client.config.PetOwnerConfig;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +41,7 @@ public abstract class OwnerNameTagRendering {
 		//If the key is bound and owner is disabled
 		if (!PetOwnerClient.keyBinding.isUnbound() && !PetOwnerClient.enabled) return;
 		//If the entity is not targeted
-		if (dispatcher.targetedEntity != entity && !PetOwnerClient.config.alwaysShow) return;
+		if (dispatcher.targetedEntity != entity && !PetOwnerConfig.alwaysShow) return;
 
 		List<UUID> ownerIds = PetOwnerClient.getOwnerIds(entity);
 		if (ownerIds.isEmpty()) return;
@@ -50,8 +52,11 @@ public abstract class OwnerNameTagRendering {
 
 			Optional<String> usernameString = PetOwnerClient.getNameFromId(ownerId);
 
-			Text text = new TranslatableText("text.petowner.message.owner", usernameString.isPresent() ?
-					usernameString.get() : new TranslatableText("text.petowner.message.error"));
+			Text text = Text.translatable("text.petowner.message.owner", usernameString.isPresent() ?
+					usernameString.get() : Text.translatable("text.petowner.message.error"));
+			if (FabricLoader.getInstance().isDevelopmentEnvironment() && usernameString.isEmpty()) {
+					LogUtils.getLogger().error("If you're trying to figure out why the mod doesn't work, it's cause you're in a dev env");
+			}
 
 			double d = this.dispatcher.getSquaredDistanceToCamera(entity);
 			if (d <= 4096.0D) {

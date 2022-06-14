@@ -1,8 +1,8 @@
 {
-  "text.petowner.config.title": "Pengaturan",
-  "text.petowner.config.mode": "Mode keybind (Hanya ketika keybind sudah di set)",
-  "text.petowner.config.always_show": "Selalu tampilkan pemilik, walaupun tidak melihat ke peliharaan",
-  "text.petowner.config.show_keybind_message": "Tampilkan pesan keybind",
+  "petowner.midnightconfig.title": "Pengaturan",
+  "petowner.midnightconfig.keybindMode": "Mode keybind (Hanya ketika keybind sudah di set)",
+  "petowner.midnightconfig.alwaysShow": "Selalu tampilkan pemilik, walaupun tidak melihat ke peliharaan",
+  "petowner.midnightconfig.showKeybindMessage": "Tampilkan pesan keybind",
 
   "text.petowner.message.owner": "§3Pemilik: %s",
   "text.petowner.message.error": "§4Ada yang salah",

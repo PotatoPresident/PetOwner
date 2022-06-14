@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.10.+'
+    id 'fabric-loom' version '0.12.+'
     id 'maven-publish'
 }
 
@@ -13,6 +13,7 @@ group = project.maven_group
 repositories {
     maven { url "https://maven.terraformersmc.com/"}
     maven { url "https://maven.shedaniel.me/" }
+    maven { url "https://api.modrinth.com/maven/" }
 }
 
 dependencies {
@@ -25,16 +26,15 @@ dependencies {
     Set<String> apiModules = [
             "fabric-api-base",
             "fabric-key-binding-api-v1",
-            "fabric-lifecycle-events-v1"
+            "fabric-lifecycle-events-v1",
+            "fabric-rendering-v1", // MidnightLib
     ]
 
     apiModules.forEach {
         modImplementation include(fabricApi.module(it, project.fabric_version))
     }
 
-    modApi include("me.shedaniel.cloth:cloth-config-lite-fabric:${project.cloth_version}") {
-        exclude module: "fabric-api"
-    }
+    modImplementation include("maven.modrinth:midnightlib:${project.midnightlib_version}")
 
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}", {
         exclude module: "fabric-api"
@@ -58,10 +58,8 @@ tasks.withType(JavaCompile) {
 // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 // if it is present.
 // If you remove this task, sources will not be generated.
-task sourcesJar(type: Jar, dependsOn: classes) {
-    //noinspection GrDeprecatedAPIUsage
-    classifier = "sources"
-    from sourceSets.main.allSource
+java {
+    withSourcesJar()
 }
 
 jar {
@@ -73,17 +71,7 @@ publishing {
     publications {
         //noinspection GroovyAssignabilityCheck
         mavenJava(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
-            //noinspection GroovyAssignabilityCheck
-            artifact(remapJar) {
-                //noinspection GroovyAssignabilityCheck
-                builtBy remapJar
-            }
-            //noinspection GroovyAssignabilityCheck
-            artifact(sourcesJar) {
-                //noinspection GroovyAssignabilityCheck
-                builtBy remapSourcesJar
-            }
+            from components.java
         }
     }
 
