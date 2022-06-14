@@ -13,9 +13,9 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.FoxEntity;
-import net.minecraft.entity.passive.HorseBaseEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import us.potatoboy.petowner.client.config.PetOwnerConfig;
@@ -67,7 +67,7 @@ public class PetOwnerClient implements ClientModInitializer {
 
 				if (keyBinding.isPressed() || keyBinding.wasPressed()) {
 					if (minecraftClient.player != null && config.showKeybindMessage) {
-						minecraftClient.player.sendMessage(new TranslatableText(enabled ? "text.petowner.message.enabled" : "text.petowner.message.disabled"), true);
+						minecraftClient.player.sendMessage(Text.translatable(enabled ? "text.petowner.message.enabled" : "text.petowner.message.disabled"), true);
 					}
 				}
 			} else {
@@ -75,7 +75,7 @@ public class PetOwnerClient implements ClientModInitializer {
 				while (keyBinding.wasPressed()) {
 					enabled = !enabled;
 					if (minecraftClient.player != null && config.showKeybindMessage) {
-						minecraftClient.player.sendMessage(new TranslatableText(enabled ? "text.petowner.message.enabled" : "text.petowner.message.disabled"), true);
+						minecraftClient.player.sendMessage(Text.translatable(enabled ? "text.petowner.message.enabled" : "text.petowner.message.disabled"), true);
 					}
 				}
 			}
@@ -94,7 +94,7 @@ public class PetOwnerClient implements ClientModInitializer {
 			}
 		}
 
-		if (entity instanceof HorseBaseEntity horseBaseEntity) {
+		if (entity instanceof AbstractHorseEntity horseBaseEntity) {
 
 			if (horseBaseEntity.isTame()) {
 				return Collections.singletonList(horseBaseEntity.getOwnerUuid());

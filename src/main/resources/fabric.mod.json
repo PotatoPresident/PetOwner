@@ -33,7 +33,7 @@
   "depends": {
     "fabric-key-binding-api-v1": "*",
     "fabric-lifecycle-events-v1": "*",
-    "minecraft":"1.18.x"
+    "minecraft":">=1.19"
   },
   "mixins": [
     "petowner.mixins.json"
