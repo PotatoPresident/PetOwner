@@ -53,9 +53,9 @@ public abstract class OwnerNameTagRendering {
 
 			Text text = Text.translatable("text.petowner.message.owner", usernameString.isPresent() ?
 					usernameString.get() : Text.translatable("text.petowner.message.error"));
-      if (FabricLoader.getInstance().isDevelopmentEnvironment() && usernameString.isEmpty()) {
-          LogUtils.getLogger().error("If you're trying to figure out why the mod doesn't work, it's cause you're in a dev env");
-      }
+			if (FabricLoader.getInstance().isDevelopmentEnvironment() && usernameString.isEmpty()) {
+					LogUtils.getLogger().error("If you're trying to figure out why the mod doesn't work, it's cause you're in a dev env");
+			}
 
 			double d = this.dispatcher.getSquaredDistanceToCamera(entity);
 			if (d <= 4096.0D) {
