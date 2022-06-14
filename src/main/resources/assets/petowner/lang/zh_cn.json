@@ -1,8 +1,8 @@
 {
-  "text.petowner.config.title": "宠物拥有者配置 §7(Pet Owner)",
-  "text.petowner.config.mode": "按键模式 (仅在设置了快捷键后生效)",
-  "text.petowner.config.always_show": "宠物在视线外时仍显示其拥有者",
-  "text.petowner.config.show_keybind_message": "显示快捷键信息",
+  "petowner.midnightconfig.title": "宠物拥有者配置 §7(Pet Owner)",
+  "petowner.midnightconfig.keybindMode": "按键模式 (仅在设置了快捷键后生效)",
+  "petowner.midnightconfig.alwaysShow": "宠物在视线外时仍显示其拥有者",
+  "petowner.midnightconfig.showKeybindMessage": "显示快捷键信息",
 
   "text.petowner.message.owner": "§3拥有者: %s",
   "text.petowner.message.error": "§4出现了一点小问题",

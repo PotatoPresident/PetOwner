@@ -25,12 +25,10 @@
   "entrypoints": {
     "client": [
       "us.potatoboy.petowner.client.PetOwnerClient"
-    ],
-    "modmenu": [
-      "us.potatoboy.petowner.client.config.ModMenuIntegration"
     ]
   },
   "depends": {
+    "midnightlib": ">=0.5.2",
     "fabric-key-binding-api-v1": "*",
     "fabric-lifecycle-events-v1": "*",
     "minecraft":">=1.19"

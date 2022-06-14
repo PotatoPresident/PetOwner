@@ -13,6 +13,7 @@ group = project.maven_group
 repositories {
     maven { url "https://maven.terraformersmc.com/"}
     maven { url "https://maven.shedaniel.me/" }
+    maven { url "https://api.modrinth.com/maven/" }
 }
 
 dependencies {
@@ -25,16 +26,15 @@ dependencies {
     Set<String> apiModules = [
             "fabric-api-base",
             "fabric-key-binding-api-v1",
-            "fabric-lifecycle-events-v1"
+            "fabric-lifecycle-events-v1",
+            "fabric-rendering-v1", // MidnightLib
     ]
 
     apiModules.forEach {
         modImplementation include(fabricApi.module(it, project.fabric_version))
     }
 
-    modApi include("me.shedaniel.cloth:cloth-config-lite-fabric:${project.cloth_version}") {
-        exclude module: "fabric-api"
-    }
+    modImplementation include("maven.modrinth:midnightlib:${project.midnightlib_version}")
 
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}", {
         exclude module: "fabric-api"

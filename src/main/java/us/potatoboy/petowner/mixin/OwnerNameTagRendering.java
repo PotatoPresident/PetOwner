@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import us.potatoboy.petowner.client.PetOwnerClient;
+import us.potatoboy.petowner.client.config.PetOwnerConfig;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +41,7 @@ public abstract class OwnerNameTagRendering {
 		//If the key is bound and owner is disabled
 		if (!PetOwnerClient.keyBinding.isUnbound() && !PetOwnerClient.enabled) return;
 		//If the entity is not targeted
-		if (dispatcher.targetedEntity != entity && !PetOwnerClient.config.alwaysShow) return;
+		if (dispatcher.targetedEntity != entity && !PetOwnerConfig.alwaysShow) return;
 
 		List<UUID> ownerIds = PetOwnerClient.getOwnerIds(entity);
 		if (ownerIds.isEmpty()) return;

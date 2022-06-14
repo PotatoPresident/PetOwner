@@ -1,8 +1,8 @@
 {
-  "text.petowner.config.title": "Pet Owner (Evcil Hayvan Sahibi) Ayarları",
-  "text.petowner.config.mode": "Tuş atama modu (Yalnızca tuş tanımlıyken)",
-  "text.petowner.config.always_show": "Bakmazken bile sahibi her zaman göster",
-  "text.petowner.config.show_keybind_message": "Tuş atama mesajlarını göster",
+  "petowner.midnightconfig.title": "Pet Owner (Evcil Hayvan Sahibi) Ayarları",
+  "petowner.midnightconfig.keybindMode": "Tuş atama modu (Yalnızca tuş tanımlıyken)",
+  "petowner.midnightconfig.alwaysShow": "Bakmazken bile sahibi her zaman göster",
+  "petowner.midnightconfig.showKeybindMessage": "Tuş atama mesajlarını göster",
 
   "text.petowner.message.owner": "§3Sahibi: %s",
   "text.petowner.message.error": "§4Bir şey yanlış gitti",

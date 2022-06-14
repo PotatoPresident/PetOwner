@@ -1,8 +1,10 @@
 {
-  "text.petowner.config.title": "Pet Owner Config",
-  "text.petowner.config.mode": "Keybind mode (Only when keybind set)",
-  "text.petowner.config.always_show": "Always show owner, even when not looking",
-  "text.petowner.config.show_keybind_message": "Show keybind messages",
+  "petowner.midnightconfig.title": "Pet Owner Config",
+  "petowner.midnightconfig.keybindMode": "Keybind mode (Only when keybind set)",
+  "petowner.midnightconfig.alwaysShow": "Always show owner, even when not looking",
+  "petowner.midnightconfig.showKeybindMessage": "Show keybind messages",
+  "petowner.midnightconfig.enum.KeybindMode.TOGGLE": "Toggle",
+  "petowner.midnightconfig.enum.KeybindMode.HOLD": "Hold",
 
   "text.petowner.message.owner": "§3Owner: %s",
   "text.petowner.message.error": "§4Something went wrong",
