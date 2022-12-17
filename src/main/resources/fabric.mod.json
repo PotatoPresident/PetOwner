@@ -28,10 +28,10 @@
     ]
   },
   "depends": {
-    "midnightlib": ">=0.5.2",
+    "midnightlib": ">=1.1.0",
     "fabric-key-binding-api-v1": "*",
     "fabric-lifecycle-events-v1": "*",
-    "minecraft":">=1.19"
+    "minecraft":">=1.19.3"
   },
   "mixins": [
     "petowner.mixins.json"
