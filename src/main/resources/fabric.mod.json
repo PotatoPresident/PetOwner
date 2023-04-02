@@ -29,9 +29,13 @@
   },
   "depends": {
     "midnightlib": ">=1.1.0",
+    "fabric-api-base": "*",
     "fabric-key-binding-api-v1": "*",
     "fabric-lifecycle-events-v1": "*",
-    "minecraft":">=1.19.3"
+    "fabric-rendering-v1": "*",
+    "fabric-models-v0": "*",
+    "fabric-resource-loader-v0": "*",
+    "minecraft":">=1.19.4"
   },
   "mixins": [
     "petowner.mixins.json"

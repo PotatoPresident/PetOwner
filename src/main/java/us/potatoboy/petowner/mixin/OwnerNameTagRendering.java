@@ -73,8 +73,8 @@ public abstract class OwnerNameTagRendering {
 				float backgroundOpacity = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25F);
 				int backgroundColor = (int) (backgroundOpacity * 255.0F) << 24;
 
-				textRenderer.draw(text, x, (float) y, 553648127, false, matrix4f, vertexConsumers, true, backgroundColor, light);
-				textRenderer.draw(text, x, (float) y, -1, false, matrix4f, vertexConsumers, false, 0, light);
+				textRenderer.draw(text, x, (float)y, 553648127, false, matrix4f, vertexConsumers, TextRenderer.TextLayerType.NORMAL, backgroundColor, light);
+				textRenderer.draw(text, x, (float)y, -1, false, matrix4f, vertexConsumers, TextRenderer.TextLayerType.NORMAL, 0, light);
 
 				matrices.pop();
 			}
