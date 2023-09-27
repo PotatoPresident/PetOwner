@@ -27,9 +27,6 @@ dependencies {
             "fabric-api-base",
             "fabric-key-binding-api-v1",
             "fabric-lifecycle-events-v1",
-            "fabric-rendering-v1", // MidnightLib
-            "fabric-models-v0", // MidnightLib
-            "fabric-resource-loader-v0" // MidnightLib
     ]
 
     apiModules.forEach {
@@ -37,6 +34,7 @@ dependencies {
     }
 
     modImplementation include("maven.modrinth:midnightlib:${project.midnightlib_version}")
+	include "maven.modrinth:midnightlib:${project.midnightlib_version}"
 
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}", {
         exclude module: "fabric-api"
