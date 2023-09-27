@@ -44,7 +44,7 @@ public class PetOwnerClient implements ClientModInitializer {
 							playerProfile = Objects.requireNonNull(MinecraftClient.getInstance().getSessionService().fetchProfile(key, false)).profile();
 							usernameCache.put(key, Optional.ofNullable(playerProfile.getName()));
 						} catch (NullPointerException e) {
-							usernameCache.put(key, Optional.of("Invalid UUID!"));
+							usernameCache.put(key, Optional.empty());
 						}
 					});
 
