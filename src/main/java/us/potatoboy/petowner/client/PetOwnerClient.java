@@ -18,6 +18,7 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import us.potatoboy.petowner.client.config.PetOwnerConfig;
 import us.potatoboy.petowner.mixin.FoxTrustedAccessor;
 
@@ -36,11 +37,15 @@ public class PetOwnerClient implements ClientModInitializer {
 			.expireAfterWrite(6, TimeUnit.HOURS)
 			.build(new CacheLoader<>() {
 				@Override
-				public Optional<String> load(UUID key) {
+				public @NotNull Optional<String> load(@NotNull UUID key) {
 					CompletableFuture.runAsync(() -> {
-						GameProfile playerProfile = new GameProfile(key, null);
-						playerProfile = MinecraftClient.getInstance().getSessionService().fillProfileProperties(playerProfile, false);
-						usernameCache.put(key, Optional.ofNullable(playerProfile.getName()));
+						GameProfile playerProfile;
+						try {
+							playerProfile = Objects.requireNonNull(MinecraftClient.getInstance().getSessionService().fetchProfile(key, false)).profile();
+							usernameCache.put(key, Optional.ofNullable(playerProfile.getName()));
+						} catch (NullPointerException e) {
+							usernameCache.put(key, Optional.empty());
+						}
 					});
 
 					return Optional.of("Waiting...");
