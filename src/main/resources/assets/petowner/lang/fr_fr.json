@@ -1,0 +1,16 @@
+{
+  "petowner.midnightconfig.title": "Configuration de Pet Owner",
+  "petowner.midnightconfig.keybindMode": "Mode de raccourci clavier (uniquement lorsqu'un raccourci clavier est défini)",
+  "petowner.midnightconfig.alwaysShow": "Toujours afficher le propriétaire, même lorsque vous ne le regardez pas",
+  "petowner.midnightconfig.showKeybindMessage": "Afficher les messages de raccourcis clavier",
+  "petowner.midnightconfig.enum.KeybindMode.TOGGLE": "Basculer",
+  "petowner.midnightconfig.enum.KeybindMode.HOLD": "Maintenir",
+
+  "text.petowner.message.owner": "§3Propriétaire : %s",
+  "text.petowner.message.error": "§4Quelque chose s'est mal passé",
+  "text.petowner.message.enabled": "§a§lAffiche §rle nom des animaux de compagnie",
+  "text.petowner.message.disabled": "§c§lCache §rle nom des animaux de compagnie",
+
+  "category.petowner.title": "Propriétaire d'animal de compagnie",
+  "key.petowner.hide": "Cacher le propriétaire"
+}
