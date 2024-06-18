@@ -1,4 +1,4 @@
 {
-  "text.petowner.message.owner": "§3Omistaja: %s",
-  "text.petowner.message.error": "§4jokin meni pieleen"
+  "text.petowner.message.owner": "Omistaja: %s",
+  "text.petowner.message.error": "jokin meni pieleen"
 }

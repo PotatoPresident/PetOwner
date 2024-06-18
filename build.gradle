@@ -1,10 +1,10 @@
 plugins {
-    id 'fabric-loom' version '1.1.+'
+    id 'fabric-loom' version '1.6.+'
     id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version + "-" + project.minecraft_version + "+"
@@ -27,6 +27,8 @@ dependencies {
             "fabric-api-base",
             "fabric-key-binding-api-v1",
             "fabric-lifecycle-events-v1",
+            "fabric-resource-loader-v0", // MidnightLib
+            "fabric-screen-api-v1"
     ]
 
     apiModules.forEach {

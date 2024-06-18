@@ -1,4 +1,4 @@
 {
-  "text.petowner.message.owner": "§3飼い主: %s",
-  "text.petowner.message.error": "§4エラーが発生しました"
+  "text.petowner.message.owner": "飼い主: %s",
+  "text.petowner.message.error": "エラーが発生しました"
 }

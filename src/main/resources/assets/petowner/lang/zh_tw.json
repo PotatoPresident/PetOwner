@@ -1,4 +1,4 @@
 {
-  "text.petowner.message.owner": "§3該寵物歸屬於: %s",
-  "text.petowner.message.error": "§4出現了一點小問題"
+  "text.petowner.message.owner": "該寵物歸屬於: %s",
+  "text.petowner.message.error": "出現了一點小問題"
 }

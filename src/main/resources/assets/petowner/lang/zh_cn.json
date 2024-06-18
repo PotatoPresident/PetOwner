@@ -4,10 +4,10 @@
   "petowner.midnightconfig.alwaysShow": "宠物在视线外时仍显示其拥有者",
   "petowner.midnightconfig.showKeybindMessage": "显示快捷键信息",
 
-  "text.petowner.message.owner": "§3拥有者: %s",
-  "text.petowner.message.error": "§4出现了一点小问题",
-  "text.petowner.message.enabled": "§a§l已显示 §r宠物名称",
-  "text.petowner.message.disabled": "§c§l已隐藏 §r宠物名称",
+  "text.petowner.message.owner": "拥有者: %s",
+  "text.petowner.message.error": "出现了一点小问题",
+  "text.petowner.message.enabled": "已显示 宠物名称",
+  "text.petowner.message.disabled": "已隐藏 宠物名称",
 
   "category.petowner.title": "宠物拥有者",
   "key.petowner.hide": "隐藏宠物拥有者"

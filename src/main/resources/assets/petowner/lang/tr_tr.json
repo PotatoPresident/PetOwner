@@ -4,10 +4,10 @@
   "petowner.midnightconfig.alwaysShow": "Bakmazken bile sahibi her zaman göster",
   "petowner.midnightconfig.showKeybindMessage": "Tuş atama mesajlarını göster",
 
-  "text.petowner.message.owner": "§3Sahibi: %s",
-  "text.petowner.message.error": "§4Bir şey yanlış gitti",
-  "text.petowner.message.enabled": "§a§lGösteriliyor: §rEvcil Hayvan İsimleri",
-  "text.petowner.message.disabled": "§c§lGizleniyor: §rEvcil Hayvan İsimleri",
+  "text.petowner.message.owner": "Sahibi: %s",
+  "text.petowner.message.error": "Bir şey yanlış gitti",
+  "text.petowner.message.enabled": "Gösteriliyor: Evcil Hayvan İsimleri",
+  "text.petowner.message.disabled": "Gizleniyor: Evcil Hayvan İsimleri",
 
   "category.petowner.title": "Pet Owner (Evcil Hayvan Sahibi)",
   "key.petowner.hide": "Sahibi Gizle"

@@ -1,13 +1,13 @@
 {
-  "text.petowner.config.title": "Настройки Pet Owner",
-  "text.petowner.config.mode": "Режим клавиши (если установлена)",
-  "text.petowner.config.always_show": "Всегда показывать владельца, даже если не смотришь на питомца",
-  "text.petowner.config.show_keybind_message": "Показывать сообщения при нажатии клавиши",
+  "petowner.midnightconfig.title": "Настройки Pet Owner",
+  "petowner.midnightconfig.keybindMode": "Режим клавиши (если установлена)",
+  "petowner.midnightconfig.alwaysShow": "Всегда показывать владельца, даже если не смотришь на питомца",
+  "petowner.midnightconfig.showKeybindMessage": "Показывать сообщения при нажатии клавиши",
 
-  "text.petowner.message.owner": "§3Владелец: %s",
-  "text.petowner.message.error": "§4Что-то пошло не так",
-  "text.petowner.message.enabled": "Имена питомцев §a§lвидны",
-  "text.petowner.message.disabled": "Имена питомцев §c§lскрыты",
+  "text.petowner.message.owner": "Владелец: %s",
+  "text.petowner.message.error": "Что-то пошло не так",
+  "text.petowner.message.enabled": "Имена питомцев видны",
+  "text.petowner.message.disabled": "Имена питомцев скрыты",
 
   "category.petowner.title": "Pet Owner",
   "key.petowner.hide": "Скрыть владельцев"

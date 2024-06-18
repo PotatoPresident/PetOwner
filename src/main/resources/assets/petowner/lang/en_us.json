@@ -6,10 +6,10 @@
   "petowner.midnightconfig.enum.KeybindMode.TOGGLE": "Toggle",
   "petowner.midnightconfig.enum.KeybindMode.HOLD": "Hold",
 
-  "text.petowner.message.owner": "§3Owner: %s",
-  "text.petowner.message.error": "§4Something went wrong",
-  "text.petowner.message.enabled": "§a§lShowing §rPet Names",
-  "text.petowner.message.disabled": "§c§lHiding §rPet Names",
+  "text.petowner.message.owner": "Owner: %s",
+  "text.petowner.message.error": "Something went wrong",
+  "text.petowner.message.enabled": "Showing Pet Names",
+  "text.petowner.message.disabled": "Hiding Pet Names",
 
   "category.petowner.title": "Pet Owner",
   "key.petowner.hide": "Hide Owner"

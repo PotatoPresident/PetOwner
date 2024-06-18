@@ -1,4 +1,4 @@
 {
-  "text.petowner.message.owner": "§3Pertenece a: %s",
-  "text.petowner.message.error": "§4Algo salio mal"
+  "text.petowner.message.owner": "Pertenece a: %s",
+  "text.petowner.message.error": "Algo salio mal"
 }

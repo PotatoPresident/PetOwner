@@ -1,6 +1,5 @@
 package us.potatoboy.petowner.mixin;
 
-import com.mojang.logging.LogUtils;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -9,7 +8,11 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAttachmentType;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -53,30 +56,32 @@ public abstract class OwnerNameTagRendering {
 			Optional<String> usernameString = PetOwnerClient.getNameFromId(ownerId);
 
 			Text text = Text.translatable("text.petowner.message.owner", usernameString.isPresent() ?
-					usernameString.get() : Text.translatable("text.petowner.message.error"));
+					Text.literal(usernameString.get()).formatted(Formatting.WHITE) : Text.translatable("text.petowner.message.error").formatted(Formatting.RED)).formatted(Formatting.DARK_AQUA);
 			if (FabricLoader.getInstance().isDevelopmentEnvironment() && usernameString.isEmpty()) {
-					LogUtils.getLogger().error("If you're trying to figure out why the mod doesn't work, it's cause you're in a dev env");
+					PetOwnerClient.LOGGER.error("If you're trying to figure out why the mod doesn't work, it's cause you're in a dev env");
 			}
 
 			double d = this.dispatcher.getSquaredDistanceToCamera(entity);
 			if (d <= 4096.0D) {
-				float height = entity.getHeight() + 0.5F;
-				int y = 10 + (10 * i);
-				matrices.push();
-				matrices.translate(0.0D, height, 0.0D);
-				matrices.multiply(this.dispatcher.getRotation());
-				matrices.scale(-0.025F, -0.025F, 0.025F);
-				Matrix4f matrix4f = matrices.peek().getPositionMatrix();
-				TextRenderer textRenderer = this.getTextRenderer();
-				float x = (float) (-textRenderer.getWidth(text) / 2);
+				Vec3d vec3d = entity.getAttachments().getPointNullable(EntityAttachmentType.NAME_TAG, 0, entity.getYaw(tickDelta));
+				if (vec3d != null) {
+					int y = 10 + (10 * i);
+					matrices.push();
+					matrices.translate(vec3d.x, vec3d.y + 0.5, vec3d.z);
+					matrices.multiply(this.dispatcher.getRotation());
+					matrices.scale(0.025F, -0.025F, 0.025F);
+					Matrix4f matrix4f = matrices.peek().getPositionMatrix();
+					TextRenderer textRenderer = this.getTextRenderer();
+					float x = (float) (-textRenderer.getWidth(text) / 2);
 
-				float backgroundOpacity = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25F);
-				int backgroundColor = (int) (backgroundOpacity * 255.0F) << 24;
+					float backgroundOpacity = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25F);
+					int backgroundColor = (int) (backgroundOpacity * 255.0F) << 24;
 
-				textRenderer.draw(text, x, (float)y, 553648127, false, matrix4f, vertexConsumers, TextRenderer.TextLayerType.NORMAL, backgroundColor, light);
-				textRenderer.draw(text, x, (float)y, -1, false, matrix4f, vertexConsumers, TextRenderer.TextLayerType.NORMAL, 0, light);
+					textRenderer.draw(text, x, (float) y, 553648127, false, matrix4f, vertexConsumers, TextRenderer.TextLayerType.SEE_THROUGH, backgroundColor, light);
+					textRenderer.draw(text, x, (float) y, Colors.WHITE, false, matrix4f, vertexConsumers, TextRenderer.TextLayerType.NORMAL, 0, light);
 
-				matrices.pop();
+					matrices.pop();
+				}
 			}
 		}
 	}

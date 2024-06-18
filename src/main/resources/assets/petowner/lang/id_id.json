@@ -4,10 +4,10 @@
   "petowner.midnightconfig.alwaysShow": "Selalu tampilkan pemilik, walaupun tidak melihat ke peliharaan",
   "petowner.midnightconfig.showKeybindMessage": "Tampilkan pesan keybind",
 
-  "text.petowner.message.owner": "§3Pemilik: %s",
-  "text.petowner.message.error": "§4Ada yang salah",
-  "text.petowner.message.enabled": "§a§lMenampilkan §rNama Peliharaan",
-  "text.petowner.message.disabled": "§c§lMenampilkan §rNama Peliharaan",
+  "text.petowner.message.owner": "Pemilik: %s",
+  "text.petowner.message.error": "Ada yang salah",
+  "text.petowner.message.enabled": "Menampilkan Nama Peliharaan",
+  "text.petowner.message.disabled": "Menampilkan Nama Peliharaan",
 
   "category.petowner.title": "Pemilik Peliharaan",
   "key.petowner.hide": "Sembunyikan Pemilik"
