@@ -1,0 +1,16 @@
+{
+  "petowner.midnightconfig.title": "Налады Pet Owner",
+  "petowner.midnightconfig.keybindMode": "Рэжым клавіш (Толькі калі кнопка прызначана)",
+  "petowner.midnightconfig.alwaysShow": "Заўсёды паказваць уладальніка, нават калі не глядзець",
+  "petowner.midnightconfig.showKeybindMessage": "Паказаць паведамленні клавіш",
+  "petowner.midnightconfig.enum.KeybindMode.TOGGLE": "Уключыць",
+  "petowner.midnightconfig.enum.KeybindMode.HOLD": "Утрымліваць",
+
+  "text.petowner.message.owner": "Уладальнік: %s",
+  "text.petowner.message.error": "Нешта пайшло не так",
+  "text.petowner.message.enabled": "Паказваць мянушку жывёл",
+  "text.petowner.message.disabled": "Хаваць мянушку жывёл",
+
+  "category.petowner.title": "Pet Owner",
+  "key.petowner.hide": "Хаваць уладальніка"
+}
