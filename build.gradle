@@ -1,12 +1,8 @@
 plugins {
-    id 'fabric-loom' version '1.6.+'
+    id 'fabric-loom' version '1.8.+'
     id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_21
-targetCompatibility = JavaVersion.VERSION_21
-
-archivesBaseName = project.archives_base_name
 version = project.mod_version + "-" + project.minecraft_version + "+"
 group = project.maven_group
 
@@ -22,21 +18,8 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    // Fabric API
-    Set<String> apiModules = [
-            "fabric-api-base",
-            "fabric-key-binding-api-v1",
-            "fabric-lifecycle-events-v1",
-            "fabric-resource-loader-v0", // MidnightLib
-            "fabric-screen-api-v1"
-    ]
-
-    apiModules.forEach {
-        modImplementation include(fabricApi.module(it, project.fabric_version))
-    }
-
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
     modImplementation include("maven.modrinth:midnightlib:${project.midnightlib_version}")
-	include "maven.modrinth:midnightlib:${project.midnightlib_version}"
 
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}", {
         exclude module: "fabric-api"
@@ -53,7 +36,7 @@ processResources {
 // ensure that the encoding is set to UTF-8, no matter what the system default is
 // this fixes some edge cases with special characters not displaying correctly
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = "UTF-8"
 }
 

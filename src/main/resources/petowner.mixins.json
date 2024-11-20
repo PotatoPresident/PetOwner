@@ -4,6 +4,7 @@
   "package": "us.potatoboy.petowner.mixin",
   "compatibilityLevel": "JAVA_8",
   "client": [
+    "EntityRenderStateMixin",
     "FoxTrustedAccessor",
     "OwnerNameTagRendering"
   ],

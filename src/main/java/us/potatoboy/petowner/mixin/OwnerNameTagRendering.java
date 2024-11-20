@@ -6,6 +6,7 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAttachmentType;
@@ -20,15 +21,16 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import us.potatoboy.petowner.client.PetOwnerClient;
-import us.potatoboy.petowner.client.config.PetOwnerConfig;
 import org.joml.Matrix4f;
+import us.potatoboy.petowner.client.PetRenderState;
+import us.potatoboy.petowner.client.config.PetOwnerConfig;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Mixin(EntityRenderer.class)
-public abstract class OwnerNameTagRendering {
+public abstract class OwnerNameTagRendering<T extends Entity, S extends EntityRenderState> {
 	@Final
 	@Shadow
 	protected EntityRenderDispatcher dispatcher;
@@ -36,17 +38,19 @@ public abstract class OwnerNameTagRendering {
 	@Shadow public abstract TextRenderer getTextRenderer();
 
 	@Inject(method = "render", at = @At("HEAD"))
-	private void render(Entity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
+	private void render(S state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
+		PetRenderState petRenderState = (PetRenderState) state;
+
 		//If HUD is hidden
 		if (MinecraftClient.getInstance().options.hudHidden) return;
 		//If the player is riding the entity
-		if (entity.hasPassenger(MinecraftClient.getInstance().player)) return;
+		if (petRenderState.petOwner$getHasPassenger()) return;
 		//If the key is bound and owner is disabled
 		if (!PetOwnerClient.keyBinding.isUnbound() && !PetOwnerClient.enabled) return;
 		//If the entity is not targeted
-		if (dispatcher.targetedEntity != entity && !PetOwnerConfig.alwaysShow) return;
+		if (!petRenderState.petOwner$getIsTargeted() && !PetOwnerConfig.alwaysShow) return;
 
-		List<UUID> ownerIds = PetOwnerClient.getOwnerIds(entity);
+		List<UUID> ownerIds = petRenderState.petOwner$getOwnerIds();
 		if (ownerIds.isEmpty()) return;
 
 		for (int i = 0; i < ownerIds.size(); i++) {
@@ -61,9 +65,9 @@ public abstract class OwnerNameTagRendering {
 					PetOwnerClient.LOGGER.error("If you're trying to figure out why the mod doesn't work, it's cause you're in a dev env");
 			}
 
-			double d = this.dispatcher.getSquaredDistanceToCamera(entity);
+			double d = state.squaredDistanceToCamera;
 			if (d <= 4096.0D) {
-				Vec3d vec3d = entity.getAttachments().getPointNullable(EntityAttachmentType.NAME_TAG, 0, entity.getYaw(tickDelta));
+				Vec3d vec3d = state.nameLabelPos;
 				if (vec3d != null) {
 					int y = 10 + (10 * i);
 					matrices.push();
@@ -85,4 +89,18 @@ public abstract class OwnerNameTagRendering {
 			}
 		}
 	}
+
+	@Inject(method = "updateRenderState", at = @At("HEAD"))
+	private void updateRenderState(T entity, S state, float tickDelta, CallbackInfo ci) {
+		if (state instanceof PetRenderState petRenderState) {
+			petRenderState.petOwner$setOwnerIds(PetOwnerClient.getOwnerIds(entity));
+			petRenderState.petOwner$setHasPassenger(entity.hasPassenger(MinecraftClient.getInstance().player));
+			petRenderState.petOwner$setIsTargeted(entity == MinecraftClient.getInstance().targetedEntity);
+
+			if (!PetOwnerClient.getOwnerIds(entity).isEmpty()) {
+				state.nameLabelPos = entity.getAttachments().getPointNullable(EntityAttachmentType.NAME_TAG, 0, entity.getLerpedYaw(tickDelta));
+			}
+		}
+	}
+
 }
