@@ -58,11 +58,12 @@ public abstract class OwnerNameTagRendering<T extends Entity, S extends EntityRe
 			if (ownerId == null) return;
 
 			Optional<String> usernameString = PetOwnerClient.getNameFromId(ownerId);
-
 			Text text = Text.translatable("text.petowner.message.owner", usernameString.isPresent() ?
-					Text.literal(usernameString.get()).formatted(Formatting.WHITE) : Text.translatable("text.petowner.message.error").formatted(Formatting.RED)).formatted(Formatting.DARK_AQUA);
+        		Text.literal(usernameString.get()).formatted(Formatting.WHITE) : 
+        		Text.literal(ownerId.toString()).formatted(Formatting.YELLOW))
+        		.formatted(Formatting.DARK_AQUA);
 			if (FabricLoader.getInstance().isDevelopmentEnvironment() && usernameString.isEmpty()) {
-					PetOwnerClient.LOGGER.error("If you're trying to figure out why the mod doesn't work, it's cause you're in a dev env");
+        		PetOwnerClient.LOGGER.error("If you're trying to figure out why the mod doesn't work, it's cause you're in a dev env");
 			}
 
 			double d = state.squaredDistanceToCamera;

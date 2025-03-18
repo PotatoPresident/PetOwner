@@ -5,19 +5,13 @@
   "name": "Pet Owner",
   "description": "Shows who owns a pet",
   "authors": [
-    "potatoboy9999"
+    "potatoboy9999",
+    "WhoIsFishie"
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/pet-owner",
-    "sources": "https://github.com/PotatoPresident/PetOwner/tree/master",
-    "issues": "https://github.com/PotatoPresident/PetOwner/issues"
-  },
-  "custom": {
-    "modmenu": {
-      "links": {
-        "modmenu.discord": "https://discord.gg/ByaVuebAPb"
-      }
-    }
+    "sources": "https://github.com/WhoIsFishie/PetOwner",
+    "issues": "https://github.com/WhoIsFishie/PetOwner/issues"
   },
   "license": "MIT",
   "icon": "logo.png",
@@ -30,7 +24,7 @@
   "depends": {
     "midnightlib": ">=1.5.0",
     "fabric-api": "*",
-    "minecraft":">=1.21.3"
+    "minecraft":">=1.21.4"
   },
   "mixins": [
     "petowner.mixins.json"
