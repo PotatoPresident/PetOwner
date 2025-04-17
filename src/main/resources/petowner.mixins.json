@@ -5,7 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "client": [
     "EntityRenderStateMixin",
-    "FoxTrustedAccessor",
+    "FoxTrustedInvoker",
     "OwnerNameTagRendering"
   ],
   "injectors": {

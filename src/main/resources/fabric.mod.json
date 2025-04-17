@@ -30,7 +30,7 @@
   "depends": {
     "midnightlib": ">=1.5.0",
     "fabric-api": "*",
-    "minecraft":">=1.21.3"
+    "minecraft":">=1.21.5"
   },
   "mixins": [
     "petowner.mixins.json"
