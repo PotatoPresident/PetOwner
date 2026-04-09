@@ -40,7 +40,7 @@ public abstract class OwnerNameTagRendering<T extends Entity, S extends EntityRe
 		if (!petRenderState.petOwner$getIsTargeted() && !PetOwnerConfig.alwaysShow) return;
 
 		List<UUID> ownerIds = petRenderState.petOwner$getOwnerIds();
-		if (ownerIds.isEmpty()) return;
+		if (ownerIds == null || ownerIds.isEmpty()) return;
 
 		for (int i = 0; i < ownerIds.size(); i++) {
 			UUID ownerId = ownerIds.get(i);
