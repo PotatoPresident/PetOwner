@@ -1,15 +1,15 @@
 package us.potatoboy.petowner.mixin;
 
-import net.minecraft.entity.LazyEntityReference;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.FoxEntity;
+import net.minecraft.world.entity.EntityReference;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.fox.Fox;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 import java.util.stream.Stream;
 
-@Mixin(FoxEntity.class)
+@Mixin(Fox.class)
 public interface FoxTrustedInvoker {
 	@Invoker("getTrustedEntities")
-	Stream<LazyEntityReference<LivingEntity>> invokeGetTrustedEntities();
+	Stream<EntityReference<LivingEntity>> invokeGetTrustedEntities();
 }

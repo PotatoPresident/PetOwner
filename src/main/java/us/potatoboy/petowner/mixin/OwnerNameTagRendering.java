@@ -1,16 +1,16 @@
 package us.potatoboy.petowner.mixin;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.state.EntityRenderState;
-import net.minecraft.client.render.state.CameraRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAttachmentType;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityAttachment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,12 +26,12 @@ import java.util.UUID;
 @Mixin(EntityRenderer.class)
 public abstract class OwnerNameTagRendering<T extends Entity, S extends EntityRenderState> {
 
-    @Inject(method = "render", at = @At("HEAD"))
-	private void render(S state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState, CallbackInfo ci) {
+    @Inject(method = "submit", at = @At("HEAD"))
+	private void render(S state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
 		PetRenderState petRenderState = (PetRenderState) state;
 
 		//If HUD is hidden
-		if (MinecraftClient.getInstance().options.hudHidden) return;
+		if (Minecraft.getInstance().options.hideGui) return;
 		//If the player is riding the entity
 		if (petRenderState.petOwner$getHasPassenger()) return;
 		//If the key is bound and owner is disabled
@@ -50,25 +50,25 @@ public abstract class OwnerNameTagRendering<T extends Entity, S extends EntityRe
 
 			Optional<String> usernameString = PetOwnerClient.getNameFromId(ownerId);
 
-			Text text = Text.translatable("text.petowner.message.owner", usernameString.isPresent() ?
-					Text.literal(usernameString.get()).formatted(Formatting.WHITE) : Text.translatable("text.petowner.message.error").formatted(Formatting.RED)).formatted(Formatting.DARK_AQUA);
+			Component text = Component.translatable("text.petowner.message.owner", usernameString.isPresent() ?
+					Component.literal(usernameString.get()).withStyle(ChatFormatting.WHITE) : Component.translatable("text.petowner.message.error").withStyle(ChatFormatting.RED)).withStyle(ChatFormatting.DARK_AQUA);
 			if (FabricLoader.getInstance().isDevelopmentEnvironment() && usernameString.isEmpty()) {
 					PetOwnerClient.LOGGER.error("If you're trying to figure out why the mod doesn't work, it's cause you're in a dev env");
 			}
 
-            queue.submitLabel(matrices, state.nameLabelPos, 10 + (10*i), text, !state.sneaking, state.light, state.squaredDistanceToCamera, cameraState);
+			submitNodeCollector.submitNameTag(poseStack, state.nameTagAttachment, 10 + (10*i), text, !state.isDiscrete, state.lightCoords, state.distanceToCameraSq, camera);
 		}
 	}
 
-	@Inject(method = "updateRenderState", at = @At("HEAD"))
+	@Inject(method = "extractRenderState", at = @At("HEAD"))
 	private void updateRenderState(T entity, S state, float tickDelta, CallbackInfo ci) {
 		if (state instanceof PetRenderState petRenderState) {
 			petRenderState.petOwner$setOwnerIds(PetOwnerClient.getOwnerIds(entity));
-			petRenderState.petOwner$setHasPassenger(entity.hasPassenger(MinecraftClient.getInstance().player));
-			petRenderState.petOwner$setIsTargeted(entity == MinecraftClient.getInstance().targetedEntity);
+			petRenderState.petOwner$setHasPassenger(entity.hasPassenger(Minecraft.getInstance().player));
+			petRenderState.petOwner$setIsTargeted(entity == Minecraft.getInstance().crosshairPickEntity);
 
 			if (!PetOwnerClient.getOwnerIds(entity).isEmpty()) {
-				state.nameLabelPos = entity.getAttachments().getPointNullable(EntityAttachmentType.NAME_TAG, 0, entity.getLerpedYaw(tickDelta));
+				state.nameTagAttachment = entity.getAttachments().getNullable(EntityAttachment.NAME_TAG, 0, entity.getYRot(tickDelta));
 			}
 		}
 	}
