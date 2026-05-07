@@ -28,9 +28,9 @@
     ]
   },
   "depends": {
-    "midnightlib": ">=1.5.0",
+    "midnightlib": ">=1.9.3",
     "fabric-api": "*",
-    "minecraft":">=1.21.10"
+    "minecraft":">=26.1"
   },
   "mixins": [
     "petowner.mixins.json"
