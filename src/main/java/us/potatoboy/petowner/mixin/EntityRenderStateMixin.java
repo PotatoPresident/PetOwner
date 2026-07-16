@@ -11,7 +11,7 @@ import java.util.UUID;
 @Mixin(EntityRenderState.class)
 public abstract class EntityRenderStateMixin implements PetRenderState {
     @Unique
-    public List<UUID> ownerIds;
+    public List<UUID> ownerIds = List.of();
     @Unique
     public boolean hasPassenger;
     @Unique
