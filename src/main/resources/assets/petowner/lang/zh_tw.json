@@ -1,4 +1,14 @@
 {
-  "text.petowner.message.owner": "該寵物歸屬於: %s",
-  "text.petowner.message.error": "出現了一點小問題"
+  "petowner.midnightconfig.keybindMode": "按鍵模式 (僅在設定了快捷鍵後生效)",
+  "petowner.midnightconfig.alwaysShow": "寵物在視線外時仍顯示其擁有者",
+  "petowner.midnightconfig.showKeybindMessage": "顯示快捷鍵資訊",
+  
+  "text.petowner.message.owner": "擁有者: %s",
+  "text.petowner.message.error": "出現了一點小問題",
+  "text.petowner.message.enabled": "已顯示 寵物名稱",
+  "text.petowner.message.disabled": "已隱藏 寵物名稱",
+  
+  "key.petowner.hide": "隱藏寵物擁有者",
+  "petowner.midnightconfig.enum.KeybindMode.TOGGLE": "觸發",
+  "petowner.midnightconfig.enum.KeybindMode.HOLD": "長按"
 }
