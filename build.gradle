@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom-remap' version '1.17-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -15,13 +15,12 @@ repositories {
 dependencies {
     //to change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
-    modImplementation include("maven.modrinth:midnightlib:${project.midnightlib_version}")
+    implementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
+    implementation include("maven.modrinth:midnightlib:${project.midnightlib_version}")
 
-    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}", {
+    implementation "com.terraformersmc:modmenu:${project.modmenu_version}", {
         exclude module: "fabric-api"
     }
 }
