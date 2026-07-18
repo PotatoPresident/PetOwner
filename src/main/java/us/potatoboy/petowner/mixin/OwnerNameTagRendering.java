@@ -26,12 +26,12 @@ import java.util.UUID;
 @Mixin(EntityRenderer.class)
 public abstract class OwnerNameTagRendering<T extends Entity, S extends EntityRenderState> {
 
-    @Inject(method = "submit", at = @At("HEAD"))
+	@Inject(method = "submit", at = @At("HEAD"))
 	private void render(S state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
 		PetRenderState petRenderState = (PetRenderState) state;
 
 		//If HUD is hidden
-		if (Minecraft.getInstance().options.hideGui) return;
+		if (Minecraft.getInstance().gui.hud.isHidden()) return;
 		//If the player is riding the entity
 		if (petRenderState.petOwner$getHasPassenger()) return;
 		//If the key is bound and owner is disabled
@@ -51,10 +51,10 @@ public abstract class OwnerNameTagRendering<T extends Entity, S extends EntityRe
 			Component text = Component.translatable("text.petowner.message.owner", usernameString.isPresent() ?
 					Component.literal(usernameString.get()).withStyle(ChatFormatting.WHITE) : Component.translatable("text.petowner.message.error").withStyle(ChatFormatting.RED)).withStyle(ChatFormatting.DARK_AQUA);
 			if (FabricLoader.getInstance().isDevelopmentEnvironment() && usernameString.isEmpty()) {
-					PetOwnerClient.LOGGER.error("If you're trying to figure out why the mod doesn't work, it's cause you're in a dev env");
+				PetOwnerClient.LOGGER.error("If you're trying to figure out why the mod doesn't work, it's cause you're in a dev env");
 			}
 
-            submitNodeCollector.submitNameTag(poseStack, state.nameTagAttachment, 10 + (10*i), text, !state.isDiscrete, state.lightCoords, state.distanceToCameraSq, camera);
+			submitNodeCollector.submitNameTag(poseStack, state.nameTagAttachment, 10 + (10*i), text, !state.isDiscrete, state.lightCoords, camera);
 		}
 	}
 
